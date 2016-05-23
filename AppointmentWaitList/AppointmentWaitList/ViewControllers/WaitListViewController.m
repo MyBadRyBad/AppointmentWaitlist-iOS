@@ -11,6 +11,8 @@
 
 @interface WaitListViewController  ()
 
+@property (nonatomic, strong) NSArray *dataArray;
+
 @end
 
 @implementation WaitListViewController
@@ -24,17 +26,26 @@
     [self setupView];
     [self setupConstaints];
     [self setupNavigationBar];
+    
+    _dataArray = @[@"1", @"2", @"3", @"4"];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 #pragma mark -
 #pragma mark - setup
 - (void)setupView {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [self.view addSubview:[self tableView]];
+    [self.view addSubview:[self waitListOpenSlowView]];
 }
 
 - (void)setupConstaints {
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _waitListOpenSlotView);
-    NSDictionary *metrics = @{@"openSlotHeight" : @(45)};
+    NSDictionary *metrics = @{@"openSlotHeight" : @(64)};
     
     // setup vertical constraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_waitListOpenSlotView(openSlotHeight)][_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
@@ -69,15 +80,25 @@
 #pragma mark -
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [_dataArray count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    static NSString *cellID = @"cellID";
+    
+    WaitListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    
+    if (cell == nil) {
+        cell = [[WaitListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
 }
 
 #pragma mark -
@@ -98,6 +119,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = nil;
     }
     

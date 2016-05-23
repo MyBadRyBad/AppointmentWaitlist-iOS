@@ -8,6 +8,8 @@
 
 #import "RootViewController.h"
 #import "WaitListViewController.h"
+#import <IonIcons.h>
+
 
 @interface RootViewController ()
 
@@ -35,10 +37,41 @@
 #pragma mark - 
 #pragma mark - pushWaitListViewController 
 - (void)showWaitListViewController {
-    WaitListViewController *waitListViewController = [[WaitListViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:waitListViewController];
     
-    [self presentViewController:navigationController animated:NO completion:nil];
+    WaitListViewController *waitListViewController = [[WaitListViewController alloc] init];
+    UIViewController *secondViewController = [[UIViewController alloc] init];
+    UIViewController *thirdViewController = [[UIViewController alloc] init];
+    
+    UINavigationController *navigationWaitListController = [[UINavigationController alloc] initWithRootViewController:waitListViewController];
+    
+    
+    // initialize tab bar images
+    UIImage *homeImageSelected = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[UIColor whiteColor]];
+    UIImage *chatImageSelected = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[UIColor whiteColor]];
+    UIImage *settingsImageSelected = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[UIColor whiteColor]];
+    
+    UIImage *homeImage = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[UIColor whiteColor]];
+    UIImage *chatImage = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[UIColor whiteColor]];
+    UIImage *settingsImage = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[UIColor whiteColor]];
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    
+    NSMutableArray *tabViewControllers = [[NSMutableArray alloc] initWithObjects:navigationWaitListController, secondViewController, thirdViewController, nil];
+    
+    // setup tab bar and tabBarItems
+    [tabBarController setViewControllers:tabViewControllers];
+    
+    navigationWaitListController.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"" image:homeImage selectedImage:homeImageSelected];
+    
+    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:chatImage selectedImage:chatImageSelected];
+    
+    thirdViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:settingsImage selectedImage:settingsImageSelected];
+    
+    
+    // setup navigation bar
+    [self presentViewController:tabBarController animated:YES completion:nil];
     
 }
 

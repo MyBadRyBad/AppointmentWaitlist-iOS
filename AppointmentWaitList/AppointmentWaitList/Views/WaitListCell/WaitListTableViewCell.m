@@ -25,7 +25,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
+        [self setup];
     }
     
     return self;
@@ -34,7 +34,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        
+        [self setup];
     }
     
     return self;
@@ -43,7 +43,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        [self setup];
     }
     
     return self;
@@ -52,7 +52,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
+        [self setup];
     }
     
     return self;
@@ -63,6 +63,29 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
+}
+
+#pragma mark -
+#pragma mark - setup
+- (void)setup {
+    [self setupView];
+    [self setupConstraints];
+}
+
+- (void)setupView {
+    [self addSubview:[self timeAreaView]];
+}
+
+- (void)setupConstraints {
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_timeAreaView);
+    NSDictionary *metrics = @{@"timeAreaViewWidth" : @(80)};
+    
+    // setup vertical constraints
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_timeAreaView]|" options:0 metrics:metrics views:viewsDictionary]];
+    
+    // setup horizontal constraints
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_timeAreaView(timeAreaViewWidth)]" options:0 metrics:metrics views:viewsDictionary]];
+    
 }
 
 #pragma mark -
@@ -101,5 +124,16 @@
     }
     
     return _timeLabel;
+}
+
+- (UIView *)timeAreaView {
+    if (!_timeAreaView) {
+        _timeAreaView = [[UIView alloc] init];
+        _timeAreaView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        _timeAreaView.backgroundColor = [UIColor grayColor];
+    }
+    
+    return _timeAreaView;
 }
 @end
