@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		389811201E94089174897953 /* libPods-AppointmentWaitListTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */; };
+		4E87A3A72EC38B5BA1BFABC6 /* libPods-AppointmentWaitList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */; };
 		6E8A5FB51CF386600083E012 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB41CF386600083E012 /* main.m */; };
 		6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB71CF386600083E012 /* AppDelegate.m */; };
-		6E8A5FBB1CF386600083E012 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FBA1CF386600083E012 /* ViewController.m */; };
 		6E8A5FBE1CF386600083E012 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A5FBC1CF386600083E012 /* Main.storyboard */; };
 		6E8A5FC11CF386600083E012 /* AppointmentWaitList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FBF1CF386600083E012 /* AppointmentWaitList.xcdatamodeld */; };
 		6E8A5FC31CF386600083E012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A5FC21CF386600083E012 /* Assets.xcassets */; };
 		6E8A5FC61CF386600083E012 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A5FC41CF386600083E012 /* LaunchScreen.storyboard */; };
 		6E8A5FD11CF386600083E012 /* AppointmentWaitListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FD01CF386600083E012 /* AppointmentWaitListTests.m */; };
 		6E8A5FDC1CF386600083E012 /* AppointmentWaitListUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FDB1CF386600083E012 /* AppointmentWaitListUITests.m */; };
+		6E8A5FF41CF398E70083E012 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FF11CF398E70083E012 /* RootViewController.m */; };
+		6E8A5FF51CF398E70083E012 /* WaitListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FF31CF398E70083E012 /* WaitListViewController.m */; };
+		6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FF71CF399170083E012 /* BackendFunctions.m */; };
+		6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FFB1CF399290083E012 /* kColorConstants.m */; };
+		6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */; };
+		6E8A60061CF3996E0083E012 /* OpenSlotDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */; };
+		6E8A60071CF3996E0083E012 /* WaitListOpenSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */; };
+		E99FE74148C2A63853B323FD /* libPods-AppointmentWaitListUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,12 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C58186A3D587EE4BDBAF4F1 /* Pods-AppointmentWaitListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListUITests/Pods-AppointmentWaitListUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		56DF99C8D7EC7BEB086F5E60 /* Pods-AppointmentWaitList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitList.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitList/Pods-AppointmentWaitList.release.xcconfig"; sourceTree = "<group>"; };
 		6E8A5FB01CF386600083E012 /* AppointmentWaitList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentWaitList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8A5FB41CF386600083E012 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E8A5FB61CF386600083E012 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6E8A5FB71CF386600083E012 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6E8A5FB91CF386600083E012 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6E8A5FBA1CF386600083E012 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6E8A5FBD1CF386600083E012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6E8A5FC01CF386600083E012 /* AppointmentWaitList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppointmentWaitList.xcdatamodel; sourceTree = "<group>"; };
 		6E8A5FC21CF386600083E012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +63,27 @@
 		6E8A5FD71CF386600083E012 /* AppointmentWaitListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppointmentWaitListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8A5FDB1CF386600083E012 /* AppointmentWaitListUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointmentWaitListUITests.m; sourceTree = "<group>"; };
 		6E8A5FDD1CF386600083E012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E8A5FF01CF398E70083E012 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ViewControllers/RootViewController.h; sourceTree = "<group>"; };
+		6E8A5FF11CF398E70083E012 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ViewControllers/RootViewController.m; sourceTree = "<group>"; };
+		6E8A5FF21CF398E70083E012 /* WaitListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListViewController.h; path = ViewControllers/WaitListViewController.h; sourceTree = "<group>"; };
+		6E8A5FF31CF398E70083E012 /* WaitListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListViewController.m; path = ViewControllers/WaitListViewController.m; sourceTree = "<group>"; };
+		6E8A5FF61CF399170083E012 /* BackendFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackendFunctions.h; path = Backend/BackendFunctions.h; sourceTree = "<group>"; };
+		6E8A5FF71CF399170083E012 /* BackendFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackendFunctions.m; path = Backend/BackendFunctions.m; sourceTree = "<group>"; };
+		6E8A5FF91CF399290083E012 /* kBackendConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kBackendConstants.h; path = Constants/kBackendConstants.h; sourceTree = "<group>"; };
+		6E8A5FFA1CF399290083E012 /* kColorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kColorConstants.h; path = Constants/kColorConstants.h; sourceTree = "<group>"; };
+		6E8A5FFB1CF399290083E012 /* kColorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = kColorConstants.m; path = Constants/kColorConstants.m; sourceTree = "<group>"; };
+		6E8A5FFF1CF3995E0083E012 /* WaitListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListTableViewCell.h; path = Views/WaitListCell/WaitListTableViewCell.h; sourceTree = "<group>"; };
+		6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListTableViewCell.m; path = Views/WaitListCell/WaitListTableViewCell.m; sourceTree = "<group>"; };
+		6E8A60021CF3996E0083E012 /* OpenSlotDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenSlotDayView.h; path = Views/OpenSlotDayView.h; sourceTree = "<group>"; };
+		6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenSlotDayView.m; path = Views/OpenSlotDayView.m; sourceTree = "<group>"; };
+		6E8A60041CF3996E0083E012 /* WaitListOpenSlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListOpenSlotView.h; path = Views/WaitListOpenSlotView.h; sourceTree = "<group>"; };
+		6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListOpenSlotView.m; path = Views/WaitListOpenSlotView.m; sourceTree = "<group>"; };
+		B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06C7C0761E0DC32C14796EC /* Pods-AppointmentWaitList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitList/Pods-AppointmentWaitList.debug.xcconfig"; sourceTree = "<group>"; };
+		FC59BA71DC505411B9A41C10 /* Pods-AppointmentWaitListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests.release.xcconfig"; sourceTree = "<group>"; };
+		FD78896C1D51222E5E787302 /* Pods-AppointmentWaitListUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListUITests/Pods-AppointmentWaitListUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E87A3A72EC38B5BA1BFABC6 /* libPods-AppointmentWaitList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				389811201E94089174897953 /* libPods-AppointmentWaitListTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +107,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99FE74148C2A63853B323FD /* libPods-AppointmentWaitListUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3DECFCAC43E3B719D6EC264E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F06C7C0761E0DC32C14796EC /* Pods-AppointmentWaitList.debug.xcconfig */,
+				56DF99C8D7EC7BEB086F5E60 /* Pods-AppointmentWaitList.release.xcconfig */,
+				D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */,
+				FC59BA71DC505411B9A41C10 /* Pods-AppointmentWaitListTests.release.xcconfig */,
+				4C58186A3D587EE4BDBAF4F1 /* Pods-AppointmentWaitListUITests.debug.xcconfig */,
+				FD78896C1D51222E5E787302 /* Pods-AppointmentWaitListUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6E8A5FA71CF386600083E012 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +134,8 @@
 				6E8A5FCF1CF386600083E012 /* AppointmentWaitListTests */,
 				6E8A5FDA1CF386600083E012 /* AppointmentWaitListUITests */,
 				6E8A5FB11CF386600083E012 /* Products */,
+				3DECFCAC43E3B719D6EC264E /* Pods */,
+				D30466A32F56B2B9D6304C24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,11 +152,13 @@
 		6E8A5FB21CF386600083E012 /* AppointmentWaitList */ = {
 			isa = PBXGroup;
 			children = (
-				6E8A5FB61CF386600083E012 /* AppDelegate.h */,
-				6E8A5FB71CF386600083E012 /* AppDelegate.m */,
-				6E8A5FB91CF386600083E012 /* ViewController.h */,
-				6E8A5FBA1CF386600083E012 /* ViewController.m */,
-				6E8A5FBC1CF386600083E012 /* Main.storyboard */,
+				6E8A5FEF1CF398BF0083E012 /* Storyboard */,
+				6E8A5FED1CF398B30083E012 /* DataModel */,
+				6E8A5FE91CF398960083E012 /* Backend */,
+				6E8A5FEA1CF398A40083E012 /* Constants */,
+				6E8A5FEB1CF398A90083E012 /* AppDelegate */,
+				6E8A5FEC1CF398AF0083E012 /* ViewControllers */,
+				6E8A5FEE1CF398B90083E012 /* Views */,
 				6E8A5FC21CF386600083E012 /* Assets.xcassets */,
 				6E8A5FC41CF386600083E012 /* LaunchScreen.storyboard */,
 				6E8A5FC71CF386600083E012 /* Info.plist */,
@@ -143,6 +194,99 @@
 			path = AppointmentWaitListUITests;
 			sourceTree = "<group>";
 		};
+		6E8A5FE91CF398960083E012 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FF61CF399170083E012 /* BackendFunctions.h */,
+				6E8A5FF71CF399170083E012 /* BackendFunctions.m */,
+			);
+			name = Backend;
+			sourceTree = "<group>";
+		};
+		6E8A5FEA1CF398A40083E012 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FF91CF399290083E012 /* kBackendConstants.h */,
+				6E8A5FFA1CF399290083E012 /* kColorConstants.h */,
+				6E8A5FFB1CF399290083E012 /* kColorConstants.m */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		6E8A5FEB1CF398A90083E012 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FB61CF386600083E012 /* AppDelegate.h */,
+				6E8A5FB71CF386600083E012 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		6E8A5FEC1CF398AF0083E012 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FF01CF398E70083E012 /* RootViewController.h */,
+				6E8A5FF11CF398E70083E012 /* RootViewController.m */,
+				6E8A5FF21CF398E70083E012 /* WaitListViewController.h */,
+				6E8A5FF31CF398E70083E012 /* WaitListViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6E8A5FED1CF398B30083E012 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		6E8A5FEE1CF398B90083E012 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FFD1CF3993B0083E012 /* WaitListTableViewCell */,
+				6E8A5FFE1CF399450083E012 /* OpenSlotsView */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6E8A5FEF1CF398BF0083E012 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FBC1CF386600083E012 /* Main.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		6E8A5FFD1CF3993B0083E012 /* WaitListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A5FFF1CF3995E0083E012 /* WaitListTableViewCell.h */,
+				6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */,
+			);
+			name = WaitListTableViewCell;
+			sourceTree = "<group>";
+		};
+		6E8A5FFE1CF399450083E012 /* OpenSlotsView */ = {
+			isa = PBXGroup;
+			children = (
+				6E8A60021CF3996E0083E012 /* OpenSlotDayView.h */,
+				6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */,
+				6E8A60041CF3996E0083E012 /* WaitListOpenSlotView.h */,
+				6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */,
+			);
+			name = OpenSlotsView;
+			sourceTree = "<group>";
+		};
+		D30466A32F56B2B9D6304C24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */,
+				B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */,
+				EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +294,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E8A5FE01CF386600083E012 /* Build configuration list for PBXNativeTarget "AppointmentWaitList" */;
 			buildPhases = (
+				7FFB3326B0FAEF2A603DFBDB /* 📦 Check Pods Manifest.lock */,
 				6E8A5FAC1CF386600083E012 /* Sources */,
 				6E8A5FAD1CF386600083E012 /* Frameworks */,
 				6E8A5FAE1CF386600083E012 /* Resources */,
+				8DF33DA358AFECA2F99DCCE5 /* 📦 Embed Pods Frameworks */,
+				2A62037EE4A9E86A730A6422 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +314,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E8A5FE31CF386600083E012 /* Build configuration list for PBXNativeTarget "AppointmentWaitListTests" */;
 			buildPhases = (
+				4B15686C3918BED8082A3847 /* 📦 Check Pods Manifest.lock */,
 				6E8A5FC81CF386600083E012 /* Sources */,
 				6E8A5FC91CF386600083E012 /* Frameworks */,
 				6E8A5FCA1CF386600083E012 /* Resources */,
+				6164D48617D6E2AE392C6492 /* 📦 Embed Pods Frameworks */,
+				088A27EE662624C36110DDE7 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,9 +335,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E8A5FE61CF386600083E012 /* Build configuration list for PBXNativeTarget "AppointmentWaitListUITests" */;
 			buildPhases = (
+				F7B54C9F603915C9EFDF56BC /* 📦 Check Pods Manifest.lock */,
 				6E8A5FD31CF386600083E012 /* Sources */,
 				6E8A5FD41CF386600083E012 /* Frameworks */,
 				6E8A5FD51CF386600083E012 /* Resources */,
+				3A64B109E5E54A8B8682BC62 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,15 +420,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		088A27EE662624C36110DDE7 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A62037EE4A9E86A730A6422 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentWaitList/Pods-AppointmentWaitList-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A64B109E5E54A8B8682BC62 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentWaitListUITests/Pods-AppointmentWaitListUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B15686C3918BED8082A3847 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6164D48617D6E2AE392C6492 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FFB3326B0FAEF2A603DFBDB /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8DF33DA358AFECA2F99DCCE5 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentWaitList/Pods-AppointmentWaitList-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7B54C9F603915C9EFDF56BC /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6E8A5FAC1CF386600083E012 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6E8A5FC11CF386600083E012 /* AppointmentWaitList.xcdatamodeld in Sources */,
-				6E8A5FBB1CF386600083E012 /* ViewController.m in Sources */,
 				6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */,
+				6E8A5FF41CF398E70083E012 /* RootViewController.m in Sources */,
+				6E8A60071CF3996E0083E012 /* WaitListOpenSlotView.m in Sources */,
 				6E8A5FB51CF386600083E012 /* main.m in Sources */,
+				6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */,
+				6E8A5FF51CF398E70083E012 /* WaitListViewController.m in Sources */,
+				6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */,
+				6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */,
+				6E8A60061CF3996E0083E012 /* OpenSlotDayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +696,7 @@
 		};
 		6E8A5FE11CF386600083E012 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06C7C0761E0DC32C14796EC /* Pods-AppointmentWaitList.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AppointmentWaitList/Info.plist;
@@ -426,6 +708,7 @@
 		};
 		6E8A5FE21CF386600083E012 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56DF99C8D7EC7BEB086F5E60 /* Pods-AppointmentWaitList.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AppointmentWaitList/Info.plist;
@@ -437,6 +720,7 @@
 		};
 		6E8A5FE41CF386600083E012 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = AppointmentWaitListTests/Info.plist;
@@ -449,6 +733,7 @@
 		};
 		6E8A5FE51CF386600083E012 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC59BA71DC505411B9A41C10 /* Pods-AppointmentWaitListTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = AppointmentWaitListTests/Info.plist;
@@ -461,6 +746,7 @@
 		};
 		6E8A5FE71CF386600083E012 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C58186A3D587EE4BDBAF4F1 /* Pods-AppointmentWaitListUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = AppointmentWaitListUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -472,6 +758,7 @@
 		};
 		6E8A5FE81CF386610083E012 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD78896C1D51222E5E787302 /* Pods-AppointmentWaitListUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = AppointmentWaitListUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -500,6 +787,7 @@
 				6E8A5FE21CF386600083E012 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E8A5FE31CF386600083E012 /* Build configuration list for PBXNativeTarget "AppointmentWaitListTests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +796,7 @@
 				6E8A5FE51CF386600083E012 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E8A5FE61CF386600083E012 /* Build configuration list for PBXNativeTarget "AppointmentWaitListUITests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +805,7 @@
 				6E8A5FE81CF386610083E012 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
