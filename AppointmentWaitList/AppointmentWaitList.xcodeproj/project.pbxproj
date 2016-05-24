@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		389811201E94089174897953 /* libPods-AppointmentWaitListTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */; };
 		4E87A3A72EC38B5BA1BFABC6 /* libPods-AppointmentWaitList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */; };
+		6E377B6E1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */; };
 		6E8A5FB51CF386600083E012 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB41CF386600083E012 /* main.m */; };
 		6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB71CF386600083E012 /* AppDelegate.m */; };
 		6E8A5FBE1CF386600083E012 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A5FBC1CF386600083E012 /* Main.storyboard */; };
@@ -22,8 +23,6 @@
 		6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FF71CF399170083E012 /* BackendFunctions.m */; };
 		6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FFB1CF399290083E012 /* kColorConstants.m */; };
 		6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */; };
-		6E8A60061CF3996E0083E012 /* OpenSlotDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */; };
-		6E8A60071CF3996E0083E012 /* WaitListOpenSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */; };
 		E99FE74148C2A63853B323FD /* libPods-AppointmentWaitListUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +48,8 @@
 		4C58186A3D587EE4BDBAF4F1 /* Pods-AppointmentWaitListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListUITests/Pods-AppointmentWaitListUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		56DF99C8D7EC7BEB086F5E60 /* Pods-AppointmentWaitList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitList.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitList/Pods-AppointmentWaitList.release.xcconfig"; sourceTree = "<group>"; };
 		6E377B691CF3DD2500A01BC1 /* kConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kConstants.h; path = Constants/kConstants.h; sourceTree = "<group>"; };
+		6E377B6C1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenSlotCollectionViewCell.h; path = Views/OpenSlotCollectionViewCell.h; sourceTree = "<group>"; };
+		6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenSlotCollectionViewCell.m; path = Views/OpenSlotCollectionViewCell.m; sourceTree = "<group>"; };
 		6E8A5FB01CF386600083E012 /* AppointmentWaitList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentWaitList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8A5FB41CF386600083E012 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E8A5FB61CF386600083E012 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -75,10 +76,6 @@
 		6E8A5FFB1CF399290083E012 /* kColorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = kColorConstants.m; path = Constants/kColorConstants.m; sourceTree = "<group>"; };
 		6E8A5FFF1CF3995E0083E012 /* WaitListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListTableViewCell.h; path = Views/WaitListCell/WaitListTableViewCell.h; sourceTree = "<group>"; };
 		6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListTableViewCell.m; path = Views/WaitListCell/WaitListTableViewCell.m; sourceTree = "<group>"; };
-		6E8A60021CF3996E0083E012 /* OpenSlotDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenSlotDayView.h; path = Views/OpenSlotDayView.h; sourceTree = "<group>"; };
-		6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenSlotDayView.m; path = Views/OpenSlotDayView.m; sourceTree = "<group>"; };
-		6E8A60041CF3996E0083E012 /* WaitListOpenSlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListOpenSlotView.h; path = Views/WaitListOpenSlotView.h; sourceTree = "<group>"; };
-		6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListOpenSlotView.m; path = Views/WaitListOpenSlotView.m; sourceTree = "<group>"; };
 		B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				6E8A5FFD1CF3993B0083E012 /* WaitListTableViewCell */,
-				6E8A5FFE1CF399450083E012 /* OpenSlotsView */,
+				6E8A5FFE1CF399450083E012 /* OpenSlotCollectionViewCell */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -268,15 +265,13 @@
 			name = WaitListTableViewCell;
 			sourceTree = "<group>";
 		};
-		6E8A5FFE1CF399450083E012 /* OpenSlotsView */ = {
+		6E8A5FFE1CF399450083E012 /* OpenSlotCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				6E8A60021CF3996E0083E012 /* OpenSlotDayView.h */,
-				6E8A60031CF3996E0083E012 /* OpenSlotDayView.m */,
-				6E8A60041CF3996E0083E012 /* WaitListOpenSlotView.h */,
-				6E8A60051CF3996E0083E012 /* WaitListOpenSlotView.m */,
+				6E377B6C1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.h */,
+				6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */,
 			);
-			name = OpenSlotsView;
+			name = OpenSlotCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		D30466A32F56B2B9D6304C24 /* Frameworks */ = {
@@ -553,13 +548,12 @@
 				6E8A5FC11CF386600083E012 /* AppointmentWaitList.xcdatamodeld in Sources */,
 				6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */,
 				6E8A5FF41CF398E70083E012 /* RootViewController.m in Sources */,
-				6E8A60071CF3996E0083E012 /* WaitListOpenSlotView.m in Sources */,
+				6E377B6E1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m in Sources */,
 				6E8A5FB51CF386600083E012 /* main.m in Sources */,
 				6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */,
 				6E8A5FF51CF398E70083E012 /* WaitListViewController.m in Sources */,
 				6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */,
 				6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */,
-				6E8A60061CF3996E0083E012 /* OpenSlotDayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

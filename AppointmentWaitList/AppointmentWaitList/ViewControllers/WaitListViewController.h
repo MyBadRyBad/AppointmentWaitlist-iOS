@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WaitListOpenSlotView.h"
 
-@interface WaitListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface WaitListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) WaitListOpenSlotView *waitListOpenSlotView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end

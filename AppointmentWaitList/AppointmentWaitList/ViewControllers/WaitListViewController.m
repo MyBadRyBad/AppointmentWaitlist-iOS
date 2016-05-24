@@ -7,11 +7,21 @@
 //
 
 #import "WaitListViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "WaitListTableViewCell.h"
+#import "OpenSlotCollectionViewCell.h"
+
+static NSString *const kCollectionCellIdentifier = @"ItemCellID";
+static NSString *const kLoadingCollectionCellIdentifer = @"LoadingCellIdentifier";
+
+static CGFloat const kCollectionViewHeight = 64.0f;
 
 @interface WaitListViewController  ()
 
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *timeAvailableArray;
+@property (nonatomic, strong) NSMutableArray *daysArray;
+
+@property (nonatomic, assign) NSInteger currentCollectionViewIndex;
 
 @end
 
@@ -27,7 +37,8 @@
     [self setupConstaints];
     [self setupNavigationBar];
     
-    _dataArray = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
+    _timeAvailableArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
+    _daysArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,20 +51,20 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self.view addSubview:[self tableView]];
-    [self.view addSubview:[self waitListOpenSlowView]];
+    [self.view addSubview:[self collectionView]];
 }
 
 - (void)setupConstaints {
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _waitListOpenSlotView);
-    NSDictionary *metrics = @{@"openSlotHeight" : @(64)};
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _collectionView);
+    NSDictionary *metrics = @{@"collectionViewHeight" : @(kCollectionViewHeight)};
     
     // setup vertical constraints
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_waitListOpenSlotView(openSlotHeight)][_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_collectionView(collectionViewHeight)][_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
     
     // setup horizontal constraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_waitListOpenSlotView]|" options:0 metrics:metrics views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_collectionView]|" options:0 metrics:metrics views:viewsDictionary]];
     
 }
 
@@ -80,7 +91,7 @@
 #pragma mark -
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_dataArray count];
+    return [_timeAvailableArray count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -99,6 +110,84 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+}
+
+#pragma mark -
+#pragma mark - UICollectionView DataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [_daysArray count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item < _daysArray.count) {
+        
+        // pre-fetch the next seven days
+        if(indexPath.item == (_daysArray.count - 7 + 1)){
+            [self fetchMoreItems];
+        }
+        
+        return [self openSlotCollectionCellForIndexPath:indexPath];
+    }
+    else {
+        [self fetchMoreItems];
+        return [self loadingCollectionCellForIndexPath:indexPath];
+    }
+}
+
+- (OpenSlotCollectionViewCell *)openSlotCollectionCellForIndexPath:(NSIndexPath *)indexPath {
+    
+    OpenSlotCollectionViewCell *cell = (OpenSlotCollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (UICollectionViewCell *)loadingCollectionCellForIndexPath:(NSIndexPath *)indexPath {
+    
+    OpenSlotCollectionViewCell *cell = (OpenSlotCollectionViewCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:kLoadingCollectionCellIdentifer forIndexPath:indexPath];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    activityIndicator.center = cell.center;
+    
+    [cell addSubview:activityIndicator];
+    
+    [activityIndicator startAnimating];
+    
+    return cell;
+}
+
+- (void)fetchMoreItems {
+    
+    NSMutableArray *newData = [NSMutableArray array];
+    NSInteger loadSize = 7; // load next seven days
+    for (int i = _currentCollectionViewIndex * loadSize; i < ((_currentCollectionViewIndex * loadSize) + loadSize); i++) {
+        [newData addObject:[NSString stringWithFormat:@"Item #%d", i]];
+    }
+    
+    _currentCollectionViewIndex++;
+    
+    
+    // Simulate an async load...
+    
+    double delayInSeconds = 3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        // Add the new data to our local collection of data.
+        for (int i = 0; i < newData.count; i++) {
+            [_daysArray addObject:newData[i]];
+        }
+        
+        // Tell the collectionView to reload.
+        [self.collectionView reloadData];
+        
+    });
+}
+
+#pragma mark -
+#pragma mark - UICollectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark -
@@ -126,15 +215,38 @@
     return _tableView;
 }
 
-- (WaitListOpenSlotView *)waitListOpenSlowView {
-    if (!_waitListOpenSlotView) {
-        _waitListOpenSlotView = [[WaitListOpenSlotView alloc] init];
-        _waitListOpenSlotView.translatesAutoresizingMaskIntoConstraints = NO;
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        // setup flowLayout
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowLayout.itemSize = CGSizeMake(kCollectionViewHeight + 4, kCollectionViewHeight);;
+        flowLayout.minimumInteritemSpacing = 1;
+        flowLayout.minimumLineSpacing = 1;
         
-        _waitListOpenSlotView.backgroundColor = [UIColor blueColor];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [_collectionView registerClass:[OpenSlotCollectionViewCell class] forCellWithReuseIdentifier:kCollectionCellIdentifier];
+        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kLoadingCollectionCellIdentifer];
+        _collectionView.pagingEnabled = NO;
+        _collectionView.collectionViewLayout = flowLayout;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        
+        _collectionView.backgroundColor = [UIColor grayColor];
+        
+        // add shadow
+        _collectionView.layer.masksToBounds = NO;
+        _collectionView.layer.shadowOffset = CGSizeMake(-1, 0.5);
+        _collectionView.layer.shadowRadius = 3;
+        _collectionView.layer.shadowOpacity = 0.5;
     }
     
-    return _waitListOpenSlotView;
+    return _collectionView;
 }
 
 @end
