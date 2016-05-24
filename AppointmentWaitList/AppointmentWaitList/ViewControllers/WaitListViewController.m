@@ -27,7 +27,7 @@
     [self setupConstaints];
     [self setupNavigationBar];
     
-    _dataArray = @[@"1", @"2", @"3", @"4"];
+    _dataArray = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,7 +88,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellID = @"cellID";
+    NSString *cellID = [NSString stringWithFormat:@"%@-%d-%d", @"cellID", indexPath.section, indexPath.row];
     
     WaitListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     

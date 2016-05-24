@@ -10,12 +10,14 @@
 
 @interface WaitListTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *topTimeLabel;
+@property (nonatomic, strong) UILabel *bottomTimeLabel;
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated lowerCircleViewVisible:(BOOL)lowerCircleViewVisible upperCircleViewVisible:(BOOL)upperCircleViewVisible;
+@property (nonatomic, strong) UILabel *topAmpmLabel;
+@property (nonatomic, strong) UILabel *bottomAmpmLabel;
 
-- (void)setLowerCircleViewVisible:(BOOL)lowerCircleViewVisible;
-- (void)setUpperCircleViewVisible:(BOOL)upperCircleViewVisible;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated circleViewVisible:(BOOL)circleViewVisible;
+- (void)setCircleViewVisible:(BOOL)upperCircleViewVisible;
 
 
 @end
