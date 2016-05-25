@@ -17,7 +17,7 @@
 //////////////////////////////////////
 @implementation BackendFunctions
 
-+ (void)getAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion {
++ (void)fetchAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion {
     
     NSString *URLString = kRESTURLAppointmentSlotsURL;
 

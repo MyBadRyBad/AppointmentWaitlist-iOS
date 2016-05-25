@@ -31,14 +31,24 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [BackendFunctions getAppointmentSlotsOfDays:7 offset:0 providerId:1 subdomain:@"test" timezone:@"America/New_York" onCompletion:^(NSDictionary *dictionary, NSError *error) {
-        
-        if (error) {
-            [self showWaitListViewController];
-        } else {
-            [self showWaitListViewController];
-        }
-    }];
+    
+    // attempt to pull data
+    [BackendFunctions
+     fetchAppointmentSlotsOfDays:kAppointmentFetchDefaultDayCount
+     offset:kAppointmentFetchDefaultOffset
+     providerId:kAppointmentFetchDefaultProviderID
+     subdomain:kAppointmentFetchDefaultDomain
+     timezone:kAppointmentFetchDefaultTimezone
+     onCompletion:^(NSDictionary *dictionary, NSError *error) {
+         if (error) {
+             
+         } else {
+             
+         }
+         
+     }];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

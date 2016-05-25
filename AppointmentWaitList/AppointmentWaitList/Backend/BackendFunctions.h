@@ -16,6 +16,6 @@ typedef void (^CompletionWithDictionaryBlock)(NSDictionary *dictionary, NSError 
 
 @interface BackendFunctions : NSObject
 
-+ (void)getAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion;
++ (void)fetchAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion;
 
 @end

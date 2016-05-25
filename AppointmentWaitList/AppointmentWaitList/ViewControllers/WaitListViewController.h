@@ -13,4 +13,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
+
+// setters
+- (void)setDaysArray:(NSMutableArray *)daysArray;
+- (void)setTimeAvailableArray:(NSMutableArray *)timeAvailableArray;
+
 @end

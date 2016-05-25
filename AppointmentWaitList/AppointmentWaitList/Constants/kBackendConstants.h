@@ -59,3 +59,14 @@ static NSString *const kBackendWaitlistDataKey = @"data";
 static NSString *const kBackendWaitlistErrorKey = @"error";
 
 
+//////////////////////////////////////
+//
+// Default variables for appointment slot fetch
+//
+//////////////////////////////////////
+static NSInteger const kAppointmentFetchDefaultOffset = 0;
+static NSInteger const kAppointmentFetchDefaultDayCount = 7;
+static NSInteger const kAppointmentFetchDefaultProviderID = 1;
+static NSString *const kAppointmentFetchDefaultDomain = @"test";
+static NSString *const kAppointmentFetchDefaultTimezone = @"America/New_York";
+

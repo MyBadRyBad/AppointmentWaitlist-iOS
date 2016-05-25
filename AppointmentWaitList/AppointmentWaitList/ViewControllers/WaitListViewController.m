@@ -8,6 +8,10 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "BackendFunctions.h"
+#import "kColorConstants.h"
+#import "kBackendConstants.h"
+#import "kConstants.h"
 #import "WaitListTableViewCell.h"
 #import "OpenSlotCollectionViewCell.h"
 
@@ -36,6 +40,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     [self setupView];
     [self setupConstaints];
     [self setupNavigationBar];
+
     
     _timeAvailableArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
     _daysArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
@@ -150,7 +155,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_timeAvailableArray count];
+    // add buffer cells for bottom and top of tableview
+    return [_timeAvailableArray count] + 2;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -256,6 +262,18 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark - setter methods
+- (void)setDaysArray:(NSMutableArray *)daysArray {
+    _daysArray = daysArray;
+    [_tableView reloadData];
+}
+
+- (void)setTimeAvailableArray:(NSMutableArray *)timeAvailableArray {
+    _timeAvailableArray = timeAvailableArray;
+    [_collectionView reloadData];
+    
+}
 
 #pragma mark -
 #pragma mark - getter methods
