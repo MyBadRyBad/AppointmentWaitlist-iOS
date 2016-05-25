@@ -16,8 +16,13 @@
 @property (nonatomic, strong) UILabel *topAmpmLabel;
 @property (nonatomic, strong) UILabel *bottomAmpmLabel;
 
+// this.selected not changing --> hacky solution
+@property (nonatomic, assign) BOOL enabled;
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated circleViewVisible:(BOOL)circleViewVisible;
-- (void)setCircleViewVisible:(BOOL)upperCircleViewVisible;
+
+- (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible;
+- (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible;
 
 
 @end

@@ -8,6 +8,9 @@
 
 #import "RootViewController.h"
 #import "WaitListViewController.h"
+#import "BackendFunctions.h"
+#import "kBackendConstants.h"
+#import "kConstants.h"
 #import <IonIcons.h>
 
 
@@ -22,11 +25,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self showWaitListViewController];
+    
+    [BackendFunctions getAppointmentSlotsOfDays:7 offset:0 providerId:1 subdomain:@"test" timezone:@"America/New_York" onCompletion:^(NSDictionary *dictionary, NSError *error) {
+        
+        if (error) {
+            [self showWaitListViewController];
+        } else {
+            [self showWaitListViewController];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

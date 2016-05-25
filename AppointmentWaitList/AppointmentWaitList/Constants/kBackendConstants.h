@@ -16,20 +16,20 @@
 //////////////////////////////////////
 
 // rest url
-static NSString *const kRESTURLAppointmentSlotsURL = @"XXXXXXXXXXXXXXXXXXXXX";
+static NSString *const kRESTURLAppointmentSlotsURL = @"https://nexhealth.info/appointment_slots";
 
 // params
-static NSString *const kRESTParamDays = @"days";
-static NSString *const kRESTParamOffset = @"offset";
-static NSString *const kRESTProviderId = @"provider_id";
-static NSString *const kRESTSubdomain = @"subdomain";
-static NSString *const kRESTtimezone = @"timezone";
+static NSString *const kRESTParamDaysKey = @"days";
+static NSString *const kRESTParamOffsetKey = @"offset";
+static NSString *const kRESTProviderIdKey = @"provider_id";
+static NSString *const kRESTSubdomainKey = @"subdomain";
+static NSString *const kRESTtimezoneKey = @"timezone";
 
 // HTTP Verbs
 static NSString *const kHttpGET = @"GET";
 static NSString *const kHttpPOST = @"POST";
 static NSString *const kHttpPUT = @"PUT";
-static NSString* const kHttpPATCH = @"PATCH";
+static NSString * const kHttpPATCH = @"PATCH";
 static NSString *const kHttpDELETE = @"DELETE";
 
 // header fields
@@ -40,11 +40,11 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 
 // header values
-static NSString *const kHeaderValueAuthorization = @"XXXXXXXXXXXXXXXXXXXXX";
-static NSString *const kHeaderValueAcceptLanguage = @"XXXXXXXXXXXXXXXXXXXXX";
-static NSString *const kHeaderValueAcceptEncoding = @"XXXXXXXXXXXXXXXXXXXXX";
-static NSString *const kHeaderValueUserAgent = @"XXXXXXXXXXXXXXXXXXXXX";
-static NSString *const kHeaderValueContentType = @"XXXXXXXXXXXXXXXXXXXXX";
+static NSString *const kHeaderValueAuthorization = @"d1q9MhixCGZX8lXge1NiTg";
+static NSString *const kHeaderValueAcceptLanguage = @"en-US;q=1.0";
+static NSString *const kHeaderValueAcceptEncoding = @"gzip;q=1.0,compress;q=0.5";
+static NSString *const kHeaderValueUserAgent = @"NexHealth2/nexhealth.nexapp (1; OS Version 9.3 (Build 13E230))";
+static NSString *const kHeaderValueContentType = @"application/json";
 
 //////////////////////////////////////
 //

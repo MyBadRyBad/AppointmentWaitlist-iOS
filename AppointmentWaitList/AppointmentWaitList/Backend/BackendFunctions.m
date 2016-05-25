@@ -17,23 +17,21 @@
 //////////////////////////////////////
 @implementation BackendFunctions
 
-+ (void)getAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone {
++ (void)getAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion {
     
-    NSString *paramString = [NSString stringWithFormat:@"?%@=%ld&%@=%ld&%@=%ld&%@=%@&%@=%@",
-                             kRESTParamDays, (long)days,
-                             kRESTParamOffset, (long)offset,
-                             kRESTProviderId, (long)providerID,
-                             kRESTSubdomain, subdomain,
-                             kRESTtimezone, timezone];
-    
-    NSString *URLString = [kRESTURLAppointmentSlotsURL stringByAppendingString:paramString];
+    NSString *URLString = kRESTURLAppointmentSlotsURL;
 
     // Create manager
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     // JSON Body
-    NSDictionary* bodyObject = nil;
+    NSDictionary* bodyObject = @{kRESTParamDaysKey : @(days),
+                                 kRESTParamOffsetKey : @(offset),
+                                 kRESTProviderIdKey : @(providerID),
+                                 kRESTSubdomainKey : subdomain,
+                                 kRESTtimezoneKey : timezone};
     
     NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:kHttpGET URLString:URLString parameters:bodyObject error:NULL];
     
@@ -47,14 +45,15 @@
     // Fetch Request
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"NSURLSessionDataTask Error: %@", error);
             
+            NSLog(@"NSURLSessionDataTask Error: %@", error);
+            onCompletion(nil, error);
             
         } else {
             NSLog(@"%@ %@", response, responseObject);
-            
+        
             NSDictionary *response = (NSDictionary *)responseObject;
-
+            onCompletion(response, nil);
         }
     }];
     

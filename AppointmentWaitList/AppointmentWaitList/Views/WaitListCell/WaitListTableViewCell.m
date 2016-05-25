@@ -22,6 +22,8 @@ static CGFloat kLabelHeight = 20.0f;
 
 @property (nonatomic, strong) UIView *timeAreaView;
 
+
+
 @end
 
 @implementation WaitListTableViewCell
@@ -93,6 +95,9 @@ static CGFloat kLabelHeight = 20.0f;
     // round the circle views
     _bottomCircleView.layer.cornerRadius = kCircleViewSize * 0.5;
     _topCircleView.layer.cornerRadius = kCircleViewSize * 0.5;
+    
+    // unselect
+    self.enabled = NO;
 }
 
 - (void)setupConstraints {
@@ -218,17 +223,31 @@ static CGFloat kLabelHeight = 20.0f;
     [super setSelected:selected animated:animated];
 }
 
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated circleViewVisible:(BOOL)circleViewVisible {
     [super setSelected:selected animated:animated];
-    [self setCircleViewVisible:circleViewVisible];
+    
+    if (selected) {
+        self.backgroundColor = [UIColor lightGrayColor];
+        
+        [self setBottomCircleViewVisible:YES];
+        [self setTopCircleViewVisible:YES];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+        
+        [self setBottomCircleViewVisible:NO];
+        [self setTopCircleViewVisible:NO];
+    }
+    
+    _enabled = selected;
 }
-
 
 #pragma mark -
 #pragma mark - separator view methods
 - (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible {
     if (_bottomCircleView) {
-        _bottomCircleView.hidden = bottomCircleViewVisible;
+        _bottomCircleView.hidden = !bottomCircleViewVisible;
         if (bottomCircleViewVisible) {
             _lineSeparatorView.layer.borderWidth = 2.0f;
         }
@@ -237,7 +256,7 @@ static CGFloat kLabelHeight = 20.0f;
 
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible {
     if (_topCircleView) {
-        _topCircleView.hidden = topCircleViewVisible;
+        _topCircleView.hidden = !topCircleViewVisible;
     }
 }
 

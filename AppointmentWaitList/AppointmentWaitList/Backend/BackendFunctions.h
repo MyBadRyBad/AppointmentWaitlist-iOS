@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+/////////////////////////////
+// block definitions
+/////////////////////////////
+typedef void (^CompletionWithErrorBlock)(BOOL success, NSError *error);
+typedef void (^CompletionWithDictionaryBlock)(NSDictionary *dictionary, NSError *error);
+
 @interface BackendFunctions : NSObject
+
++ (void)getAppointmentSlotsOfDays:(NSInteger)days offset:(NSInteger)offset providerId:(NSInteger)providerID subdomain:(NSString *)subdomain timezone:(NSString *)timezone onCompletion:(CompletionWithDictionaryBlock)onCompletion;
 
 @end

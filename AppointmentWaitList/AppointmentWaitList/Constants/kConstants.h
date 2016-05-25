@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-static CGFloat const kFontSizeWaitListTime = 14.0f;
 
+////////////////////////////////////////
+//
+// Font size constants
+//
+////////////////////////////////////////
+static CGFloat const kFontSizeWaitListTime = 14.0f;
 static CGFloat const kFontSizeOpenSlot = 12.0f;
 

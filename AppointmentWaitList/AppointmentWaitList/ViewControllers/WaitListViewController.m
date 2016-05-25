@@ -77,7 +77,14 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView Delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WaitListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
+    
+    if (cell.enabled) {
+        [cell setSelected:NO animated:YES circleViewVisible:YES];
+    } else {
+        [cell setSelected:YES animated:YES circleViewVisible:NO];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
