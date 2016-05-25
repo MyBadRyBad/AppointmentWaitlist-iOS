@@ -16,7 +16,14 @@
 //////////////////////////////////////
 
 // rest url
-static NSString *const kRESTURLAppointmentSlotsURL = @"https://nexhealth.info/appointment_slots";
+static NSString *const kRESTURLAppointmentSlotsURL = @"xxxxxxx_URL_GOES_HERE_xxxxxxx";
+
+// header values
+static NSString *const kHeaderValueAuthorization = @"xxxxxxx_VALUE_GOES_HERE_xxxxxxx";
+static NSString *const kHeaderValueAcceptLanguage = @"xxxxxxx_VALUE_GOES_HERE_xxxxxxx";
+static NSString *const kHeaderValueAcceptEncoding = @"xxxxxxx_VALUE_GOES_HERE_xxxxxxx";
+static NSString *const kHeaderValueUserAgent = @"xxxxxxx_VALUE_GOES_HERE_xxxxxxx";
+static NSString *const kHeaderValueContentType = @"xxxxxxx_VALUE_GOES_HERE_xxxxxxx";
 
 // params
 static NSString *const kRESTParamDaysKey = @"days";
@@ -39,12 +46,6 @@ static NSString *const kHeaderFieldAcceptEncoding = @"Accept-Encoding";
 static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 
-// header values
-static NSString *const kHeaderValueAuthorization = @"d1q9MhixCGZX8lXge1NiTg";
-static NSString *const kHeaderValueAcceptLanguage = @"en-US;q=1.0";
-static NSString *const kHeaderValueAcceptEncoding = @"gzip;q=1.0,compress;q=0.5";
-static NSString *const kHeaderValueUserAgent = @"NexHealth2/nexhealth.nexapp (1; OS Version 9.3 (Build 13E230))";
-static NSString *const kHeaderValueContentType = @"application/json";
 
 //////////////////////////////////////
 //

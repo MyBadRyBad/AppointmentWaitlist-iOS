@@ -22,7 +22,8 @@ static CGFloat kLabelHeight = 20.0f;
 
 @property (nonatomic, strong) UIView *timeAreaView;
 
-
+// this.selected not changing --> hacky solution part 2
+@property (nonatomic, assign) BOOL enabled;
 
 @end
 
@@ -97,7 +98,9 @@ static CGFloat kLabelHeight = 20.0f;
     _topCircleView.layer.cornerRadius = kCircleViewSize * 0.5;
     
     // unselect
-    self.enabled = NO;
+    [self setEnabled:NO];
+    [self setTopCircleViewVisible:NO];
+    [self setBottomCircleViewVisible:NO];
 }
 
 - (void)setupConstraints {
@@ -221,26 +224,17 @@ static CGFloat kLabelHeight = 20.0f;
 #pragma mark - setSelected
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
 }
 
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated circleViewVisible:(BOOL)circleViewVisible {
-    [super setSelected:selected animated:animated];
-    
-    if (selected) {
+- (void)setEnabled:(BOOL)enabled {
+    if (enabled) {
         self.backgroundColor = [UIColor lightGrayColor];
-        
-        [self setBottomCircleViewVisible:YES];
-        [self setTopCircleViewVisible:YES];
     } else {
         self.backgroundColor = [UIColor whiteColor];
-        
-        [self setBottomCircleViewVisible:NO];
-        [self setTopCircleViewVisible:NO];
     }
     
-    _enabled = selected;
+    _enabled = enabled;
 }
 
 #pragma mark -
@@ -249,7 +243,9 @@ static CGFloat kLabelHeight = 20.0f;
     if (_bottomCircleView) {
         _bottomCircleView.hidden = !bottomCircleViewVisible;
         if (bottomCircleViewVisible) {
-            _lineSeparatorView.layer.borderWidth = 2.0f;
+            _lineSeparatorView.layer.borderWidth = 1.0f;
+        } else {
+            _lineSeparatorView.layer.borderWidth = 0.0f;
         }
     }
 }
@@ -258,6 +254,12 @@ static CGFloat kLabelHeight = 20.0f;
     if (_topCircleView) {
         _topCircleView.hidden = !topCircleViewVisible;
     }
+}
+
+#pragma mark -
+#pragma mark - isEnabled
+- (BOOL)isEnabled {
+    return _enabled;
 }
 
 #pragma mark -

@@ -77,13 +77,65 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView Delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    WaitListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    WaitListTableViewCell *selectedCell  = [_tableView cellForRowAtIndexPath:indexPath];
+    WaitListTableViewCell *previousCell;
+    WaitListTableViewCell *nextCell;
+    
+    // check to see if there are valid cells before and after selected
+    if (indexPath.row - 1 >= 0) {
+        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+        previousCell = [_tableView cellForRowAtIndexPath:previousIndexPath];
+    }
+    
+    if (indexPath.row + 1 < [_timeAvailableArray count]) {
+        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
+        nextCell = [_tableView cellForRowAtIndexPath:nextIndexPath];
+    }
     
     
-    if (cell.enabled) {
-        [cell setSelected:NO animated:YES circleViewVisible:YES];
+    if ([selectedCell isEnabled]) {
+        [selectedCell setEnabled:NO];
+        
+        // disable circle view if previous cell is active
+        if (previousCell && [previousCell isEnabled]) {
+            [selectedCell setTopCircleViewVisible:YES];
+            [previousCell setBottomCircleViewVisible:YES];
+        } else if (previousCell && ![previousCell isEnabled]){
+            [selectedCell setTopCircleViewVisible:NO];
+            [previousCell setBottomCircleViewVisible:NO];
+        }
+        
+        // show circle view for next cell if necesssary
+        if (nextCell && [nextCell isEnabled]) {
+            [selectedCell setBottomCircleViewVisible:YES];
+            [nextCell setTopCircleViewVisible:YES];
+        } else if (nextCell && ![nextCell isEnabled]) {
+            [selectedCell setBottomCircleViewVisible:NO];
+            [nextCell setTopCircleViewVisible:NO];
+        }
+        
     } else {
-        [cell setSelected:YES animated:YES circleViewVisible:NO];
+        [selectedCell setEnabled:YES];
+        
+        // show circle views for previous cell if necessary
+        if (previousCell && [previousCell isEnabled]) {
+            [selectedCell setTopCircleViewVisible:NO];
+            [previousCell setBottomCircleViewVisible:NO];
+        } else if (previousCell && ![previousCell isEnabled]) {
+            [selectedCell setTopCircleViewVisible:YES];
+            [previousCell setBottomCircleViewVisible:YES];
+        }
+        
+        // show circle views for next cell if necessary
+        if (nextCell && [nextCell isEnabled]) {
+            [selectedCell setBottomCircleViewVisible:NO];
+            [nextCell setTopCircleViewVisible:NO];
+        } else if (nextCell && ![nextCell isEnabled]) {
+            [selectedCell setBottomCircleViewVisible:YES];
+            [nextCell setTopCircleViewVisible:YES];
+        }
+        
     }
 }
 
@@ -176,7 +228,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     // Simulate an async load...
     
-    double delayInSeconds = 3;
+    double delayInSeconds = 5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         

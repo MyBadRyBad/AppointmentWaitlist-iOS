@@ -10,19 +10,19 @@
 
 @interface WaitListTableViewCell : UITableViewCell
 
+
+// hacky solution to allow labels to overlap cells
 @property (nonatomic, strong) UILabel *topTimeLabel;
 @property (nonatomic, strong) UILabel *bottomTimeLabel;
 
 @property (nonatomic, strong) UILabel *topAmpmLabel;
 @property (nonatomic, strong) UILabel *bottomAmpmLabel;
 
-// this.selected not changing --> hacky solution
-@property (nonatomic, assign) BOOL enabled;
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated circleViewVisible:(BOOL)circleViewVisible;
 
 - (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible;
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible;
 
+- (void)setEnabled:(BOOL)enabled;
+- (BOOL)isEnabled;
 
 @end
