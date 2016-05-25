@@ -15,7 +15,6 @@
 
 
 // setters
-- (void)setDaysArray:(NSMutableArray *)daysArray;
 - (void)setTimeAvailableArray:(NSMutableArray *)timeAvailableArray;
 
 @end

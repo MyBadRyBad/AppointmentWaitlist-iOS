@@ -36,14 +36,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark - View Controller Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupView];
-    [self setupConstaints];
-    [self setupNavigationBar];
-
-    
-    _timeAvailableArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
-    _daysArray = [NSMutableArray arrayWithArray:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"]];
+    [self setup];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -52,6 +45,16 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 #pragma mark -
 #pragma mark - setup
+- (void)setup {
+    [self setupView];
+    [self setupConstaints];
+    [self setupNavigationBar];
+    
+    if (!_timeAvailableArray) {
+        
+    }
+}
+
 - (void)setupView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -222,7 +225,22 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 }
 
 - (void)fetchMoreItems {
+    [self simulateFetch];
+}
+
+#pragma mark -
+#pragma mark - UICollectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+#pragma mark -
+#pragma mark - generate test data
+- (void)generateTestTimeArray {
+    
+}
+
+- (void)simulateFetch {
     NSMutableArray *newData = [NSMutableArray array];
     NSInteger loadSize = 7; // load next seven days
     for (int i = _currentCollectionViewIndex * loadSize; i < ((_currentCollectionViewIndex * loadSize) + loadSize); i++) {
@@ -249,11 +267,6 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     });
 }
 
-#pragma mark -
-#pragma mark - UICollectionView Delegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
 
 #pragma mark -
 #pragma mark - didReceiveMemoryWarning
