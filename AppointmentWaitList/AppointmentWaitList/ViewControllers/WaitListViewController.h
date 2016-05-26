@@ -13,8 +13,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-
-// setters
-- (void)setTimeAvailableArray:(NSMutableArray *)timeAvailableArray;
+- (void)setTimeAvailable:(NSMutableArray *)timeAvailableArray;
 
 @end

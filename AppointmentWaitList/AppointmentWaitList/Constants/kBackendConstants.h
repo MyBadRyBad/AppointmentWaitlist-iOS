@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 //
 // HTTP Request Constants
 //
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 
 // rest url
 static NSString *const kRESTURLAppointmentSlotsURL = @"xxxxxxx_URL_GOES_HERE_xxxxxxx";
@@ -47,11 +47,11 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 
 
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 //
 // Waitlist data keys
 //
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 
 static NSString *const kBackendWaitlistCodeKey = @"code";
 static NSString *const kBackendWaitlistDescriptionKey = @"description";
@@ -59,14 +59,22 @@ static NSString *const kBackendWaitlistDataKey = @"data";
 static NSString *const kBackendWaitlistErrorKey = @"error";
 
 
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 //
 // Default variables for appointment slot fetch
 //
-//////////////////////////////////////
+////////////////////////////////////////////////////////
 static NSInteger const kAppointmentFetchDefaultOffset = 0;
 static NSInteger const kAppointmentFetchDefaultDayCount = 7;
 static NSInteger const kAppointmentFetchDefaultProviderID = 1;
 static NSString *const kAppointmentFetchDefaultDomain = @"test";
 static NSString *const kAppointmentFetchDefaultTimezone = @"America/New_York";
+
+////////////////////////////////////////////////////////
+//
+// Default variables for appointment slot fetch
+//
+////////////////////////////////////////////////////////
+static NSString *const kDateFormatStringJSON = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
+
 

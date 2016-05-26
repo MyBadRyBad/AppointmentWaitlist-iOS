@@ -97,7 +97,7 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
 
 #pragma mark -
 #pragma mark - pushWaitListViewController
-- (void)showWaitListViewControllerWithTimeArray:(NSArray *)timeAvailableArray {
+- (void)showWaitListViewControllerWithTimeArray:(NSArray *)timeArray {
     
     WaitListViewController *waitListViewController = [[WaitListViewController alloc] init];
     UIViewController *secondViewController = [[UIViewController alloc] init];
@@ -130,7 +130,8 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
     thirdViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:settingsImage selectedImage:settingsImageSelected];
     
     // set time availability array
-    [waitListViewController setTimeAvailableArray:[NSMutableArray arrayWithArray:timeAvailableArray]];
+    NSMutableArray *timeAvailableArray = (timeArray) ? [NSMutableArray arrayWithArray:timeArray] : nil;
+    [waitListViewController setTimeAvailable:timeAvailableArray];
     
     // setup navigation bar
     [self presentViewController:tabBarController animated:YES completion:nil];

@@ -8,6 +8,7 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSDate+Utilities.h"
 #import "BackendFunctions.h"
 #import "kColorConstants.h"
 #import "kBackendConstants.h"
@@ -22,8 +23,10 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 @interface WaitListViewController  ()
 
-@property (nonatomic, strong) NSMutableArray *timeAvailableArray;
-@property (nonatomic, strong) NSMutableArray *daysArray;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+@property (nonatomic, weak) NSMutableDictionary *keyArray;
+@property (nonatomic, strong) NSMutableDictionary *dataDictionary;
 
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
 
@@ -50,9 +53,9 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     [self setupConstaints];
     [self setupNavigationBar];
     
-    if (!_timeAvailableArray) {
-        
-    }
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateFormat:kDateFormatStringJSON];
+    
 }
 
 - (void)setupView {
@@ -95,11 +98,12 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
         previousCell = [_tableView cellForRowAtIndexPath:previousIndexPath];
     }
-    
-    if (indexPath.row + 1 < [_timeAvailableArray count]) {
+ 
+#warning TODO
+ /*   if (indexPath.row + 1 < [_timeAvailableArray count]) {
         NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
         nextCell = [_tableView cellForRowAtIndexPath:nextIndexPath];
-    }
+    } */
     
     
     if ([selectedCell isEnabled]) {
@@ -159,7 +163,10 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // add buffer cells for bottom and top of tableview
-    return [_timeAvailableArray count] + 2;
+    
+#warning TODO
+   // return [_timeAvailableArray count] + 2;
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -183,14 +190,14 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UICollectionView DataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_daysArray count];
+    return [_dataDictionary count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item < _daysArray.count) {
+    if (indexPath.item < [_dataDictionary count]) {
         
         // pre-fetch the next seven days
-        if(indexPath.item == (_daysArray.count - 7 + 1)){
+        if(indexPath.item == ([_dataDictionary count] - 7 + 1)){
             [self fetchMoreItems];
         }
         
@@ -236,7 +243,24 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 #pragma mark -
 #pragma mark - generate test data
-- (void)generateTestTimeArray {
+- (NSMutableArray *)createTestDataWithStartDay:(NSDate *)startDate {
+    NSMutableArray *newTestTimeArray = [[NSMutableArray alloc] init];
+    NSInteger numberOfTotalsHours = 9;
+    NSInteger minuteIncrement = 15;
+    NSInteger totalNumberOfDays = 7;
+    
+    NSInteger totalTestTimes = (numberOfTotalsHours * (60 / minuteIncrement)) * totalNumberOfDays;
+    
+    // create a new date starting at 9:00am
+    startDate = [[startDate dateAtStartOfDay] dateByAddingHours:9];
+    [newTestTimeArray addObject:startDate];
+    
+    
+    for (int index = 0; index < totalTestTimes; index++) {
+        [newTestTimeArray addObject:[startDate dateByAddingMinutes:(minuteIncrement * index)]];
+    }
+    
+    return newTestTimeArray;
     
 }
 
@@ -258,7 +282,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         
         // Add the new data to our local collection of data.
         for (int i = 0; i < newData.count; i++) {
-            [_daysArray addObject:newData[i]];
+         //   [_dataArray addObject:newData[i]];
         }
         
         // Tell the collectionView to reload.
@@ -267,25 +291,51 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     });
 }
 
+#pragma mark -
+#pragma mark - sortData 
+
 
 #pragma mark -
 #pragma mark - didReceiveMemoryWarning
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    [_dataDictionary removeAllObjects];
+    [_keyArray removeAllObjects];
+    
+    // show alert and reset data
 }
 
 #pragma mark -
 #pragma mark - setter methods
-- (void)setDaysArray:(NSMutableArray *)daysArray {
-    _daysArray = daysArray;
-    [_tableView reloadData];
-}
-
-- (void)setTimeAvailableArray:(NSMutableArray *)timeAvailableArray {
-    _timeAvailableArray = timeAvailableArray;
-    [_collectionView reloadData];
+- (void)setTimeAvailable:(NSMutableArray *)timeAvailableArray {
     
+    if (!timeAvailableArray || [timeAvailableArray count] == 0) {
+        timeAvailableArray = [self createTestDataWithStartDay:[NSDate date]];
+    }
+    
+    for (int index = 0; index < [timeAvailableArray count]; index++) {
+        NSDate *date;
+        
+        // check what kind of objects are in the string
+        if ([timeAvailableArray[index] isKindOfClass:[NSDate class]]) { // is date
+            date = timeAvailableArray[index];
+        } else { // is string
+            NSString *jsonString = timeAvailableArray[index];
+            date = [_dateFormatter dateFromString:jsonString];
+        }
+        
+        // add the date to the data dictionary
+        NSString *key = [date shortDateString];
+        NSMutableArray *timeArray = [_dataDictionary objectForKey:key];
+        
+        if (!timeArray || [timeArray isEqual:[NSNull null]]) {
+            timeArray = [[NSMutableArray alloc] init];
+            [_dataDictionary setObject:timeArray forKey:key];
+        }
+        
+        [timeArray addObject:date];
+    }
 }
 
 #pragma mark -
