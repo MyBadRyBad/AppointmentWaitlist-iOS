@@ -245,19 +245,28 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark - generate test data
 - (NSMutableArray *)createTestDataWithStartDay:(NSDate *)startDate {
     NSMutableArray *newTestTimeArray = [[NSMutableArray alloc] init];
-    NSInteger numberOfTotalsHours = 9;
+    NSInteger numberOfHoursPerDay = 9;
     NSInteger minuteIncrement = 15;
     NSInteger totalNumberOfDays = 7;
     
-    NSInteger totalTestTimes = (numberOfTotalsHours * (60 / minuteIncrement)) * totalNumberOfDays;
+    NSInteger minuteIncrementPerDay = numberOfHoursPerDay * (60 / minuteIncrement);
     
     // create a new date starting at 9:00am
     startDate = [[startDate dateAtStartOfDay] dateByAddingHours:9];
-    [newTestTimeArray addObject:startDate];
     
+    for (int day = 0; day < totalNumberOfDays; day++) {
+        
+        // convert day into minutes
+        unsigned int dayMinutes = (24 * 60) * day;
     
-    for (int index = 0; index < totalTestTimes; index++) {
-        [newTestTimeArray addObject:[startDate dateByAddingMinutes:(minuteIncrement * index)]];
+        // add beginning of the day
+        [newTestTimeArray addObject:[startDate dateByAddingDays:day]];
+        
+        // add increments of minuteIncrement until total hours reached
+        for (int increment = 1; increment <= minuteIncrementPerDay; increment++) {
+            
+            [newTestTimeArray addObject:[startDate dateByAddingMinutes:(dayMinutes + (minuteIncrement * increment))]];
+        }
     }
     
     return newTestTimeArray;
@@ -312,6 +321,10 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     if (!timeAvailableArray || [timeAvailableArray count] == 0) {
         timeAvailableArray = [self createTestDataWithStartDay:[NSDate date]];
+    }
+    
+    if (!_dataDictionary || [_dataDictionary isEqual:[NSNull null]]) {
+        _dataDictionary = [[NSMutableDictionary alloc] init];
     }
     
     for (int index = 0; index < [timeAvailableArray count]; index++) {
