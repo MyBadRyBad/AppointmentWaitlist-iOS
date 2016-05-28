@@ -25,7 +25,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
-@property (nonatomic, weak) NSMutableDictionary *keyArray;
+@property (nonatomic, weak) NSArray *keyArray;
 @property (nonatomic, strong) NSMutableDictionary *dataDictionary;
 
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
@@ -55,6 +55,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateFormat:kDateFormatStringJSON];
+    
+    _currentCollectionViewIndex = 0;
     
 }
 
@@ -88,6 +90,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView Delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *key = _keyArray[_currentCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
     
     WaitListTableViewCell *selectedCell  = [_tableView cellForRowAtIndexPath:indexPath];
     WaitListTableViewCell *previousCell;
@@ -98,12 +102,11 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
         previousCell = [_tableView cellForRowAtIndexPath:previousIndexPath];
     }
- 
-#warning TODO
- /*   if (indexPath.row + 1 < [_timeAvailableArray count]) {
+    
+    if (indexPath.row + 1 < [timeArray count]) {
         NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
         nextCell = [_tableView cellForRowAtIndexPath:nextIndexPath];
-    } */
+    }
     
     
     if ([selectedCell isEnabled]) {
@@ -164,9 +167,10 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // add buffer cells for bottom and top of tableview
     
-#warning TODO
-   // return [_timeAvailableArray count] + 2;
-    return 0;
+    NSString *key = _keyArray[_currentCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
+
+    return [timeArray count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -310,9 +314,12 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     [super didReceiveMemoryWarning];
     
     [_dataDictionary removeAllObjects];
-    [_keyArray removeAllObjects];
+    
+    _dataDictionary = nil;
+    _keyArray = nil;
     
     // show alert and reset data
+#warning TODO
 }
 
 #pragma mark -
@@ -349,6 +356,32 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         
         [timeArray addObject:date];
     }
+    
+    // get a sorted reference of the keys
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    
+    NSArray *tempKeyArray = [_dataDictionary allKeys];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    NSMutableArray *sortedKeyArray = [[NSMutableArray alloc] init];
+    
+    // enumerate through the temp keys and convert to nsdate
+    for (NSString *key in tempKeyArray) {
+        [tempArray addObject:[formatter dateFromString:key]];
+    }
+    
+    [tempArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [(NSDate *)obj1 compare:(NSDate *)obj2];
+    }];
+    
+    for (NSDate *keyDate in tempArray) {
+        [sortedKeyArray addObject:[formatter stringFromDate:keyDate]];
+    }
+    
+    // get sorted array
+    _keyArray = [NSArray arrayWithArray:sortedKeyArray];
+    
 }
 
 #pragma mark -
