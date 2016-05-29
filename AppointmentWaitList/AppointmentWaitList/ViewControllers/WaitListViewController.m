@@ -8,6 +8,7 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "DateFormatterManager.h"
 #import "NSDate+Utilities.h"
 #import "BackendFunctions.h"
 #import "kColorConstants.h"
@@ -23,9 +24,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 @interface WaitListViewController  ()
 
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
-
 @property (nonatomic, strong) NSArray *keyArray;
+@property (nonatomic, strong) NSMutableArray *selectedRowArray;
 @property (nonatomic, strong) NSMutableDictionary *dataDictionary;
 
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
@@ -50,10 +50,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - setup
 - (void)setup {
-    _dateFormatter = [[NSDateFormatter alloc] init];
-    [_dateFormatter setDateFormat:kDateFormatStringJSON];
-    
     _selectedCollectionViewIndex = 0;
+    [self resetSelectedTableViewRows];
     
     [self setupView];
     [self setupConstaints];
@@ -91,67 +89,13 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView Delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *key = _keyArray[_selectedCollectionViewIndex];
-    NSArray *timeArray = _dataDictionary[key];
     
-    WaitListTableViewCell *selectedCell  = [_tableView cellForRowAtIndexPath:indexPath];
-    WaitListTableViewCell *previousCell;
-    WaitListTableViewCell *nextCell;
-    
-    // check to see if there are valid cells before and after selected
-    if (indexPath.row - 1 >= 0) {
-        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-        previousCell = [_tableView cellForRowAtIndexPath:previousIndexPath];
-    }
-    
-    if (indexPath.row + 1 < [timeArray count]) {
-        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
-        nextCell = [_tableView cellForRowAtIndexPath:nextIndexPath];
-    }
-    
-    
-    if ([selectedCell isEnabled]) {
-        [selectedCell setEnabled:NO];
+    // only allow middle cells. ignore the top + bottom buffer cells
+    if (indexPath.row > 0 && indexPath.row < [_selectedRowArray count]) {
+        NSNumber *isSelected = (NSNumber *)_selectedRowArray[indexPath.row - 1];
+        _selectedRowArray[indexPath.row - 1] = [NSNumber numberWithBool:![isSelected boolValue]];
         
-        // disable circle view if previous cell is active
-        if (previousCell && [previousCell isEnabled]) {
-            [selectedCell setTopCircleViewVisible:YES];
-            [previousCell setBottomCircleViewVisible:YES];
-        } else if (previousCell && ![previousCell isEnabled]){
-            [selectedCell setTopCircleViewVisible:NO];
-            [previousCell setBottomCircleViewVisible:NO];
-        }
-        
-        // show circle view for next cell if necesssary
-        if (nextCell && [nextCell isEnabled]) {
-            [selectedCell setBottomCircleViewVisible:YES];
-            [nextCell setTopCircleViewVisible:YES];
-        } else if (nextCell && ![nextCell isEnabled]) {
-            [selectedCell setBottomCircleViewVisible:NO];
-            [nextCell setTopCircleViewVisible:NO];
-        }
-        
-    } else {
-        [selectedCell setEnabled:YES];
-        
-        // show circle views for previous cell if necessary
-        if (previousCell && [previousCell isEnabled]) {
-            [selectedCell setTopCircleViewVisible:NO];
-            [previousCell setBottomCircleViewVisible:NO];
-        } else if (previousCell && ![previousCell isEnabled]) {
-            [selectedCell setTopCircleViewVisible:YES];
-            [previousCell setBottomCircleViewVisible:YES];
-        }
-        
-        // show circle views for next cell if necessary
-        if (nextCell && [nextCell isEnabled]) {
-            [selectedCell setBottomCircleViewVisible:NO];
-            [nextCell setTopCircleViewVisible:NO];
-        } else if (nextCell && ![nextCell isEnabled]) {
-            [selectedCell setBottomCircleViewVisible:YES];
-            [nextCell setTopCircleViewVisible:YES];
-        }
-        
+        [_tableView reloadData];
     }
 }
 
@@ -171,7 +115,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     NSString *key = _keyArray[_selectedCollectionViewIndex];
     NSArray *timeArray = _dataDictionary[key];
 
-    return [timeArray count];
+    // add a buffer of two empty rows for visual purposes
+    return [timeArray count] + 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -179,15 +124,57 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger currentCellIndex = indexPath.row - 1;
+    NSInteger previousCellIndex = currentCellIndex - 1;
+    NSInteger nextCellIndex = currentCellIndex + 1;
     NSString *cellID = [NSString stringWithFormat:@"%@-%d-%d", @"cellID", indexPath.section, indexPath.row];
+    
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
+    NSDateFormatter *dateFormatter = [[DateFormatterManager sharedManager] timeDateFormatter];
     
     WaitListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     if (cell == nil) {
         cell = [[WaitListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row == 0) {
+        cell.bottomTimeLabel.text = [dateFormatter stringFromDate:timeArray[indexPath.row]];
+    }
+    
+    if (indexPath.row == [timeArray count]) {
+        cell.lineSeparatorView.hidden = YES;
+    }
+    
+    if (indexPath.row > 0 && indexPath.row < [timeArray count]) {
+        cell.topTimeLabel.text = [dateFormatter stringFromDate:timeArray[currentCellIndex]];
+        cell.bottomTimeLabel.text = [dateFormatter stringFromDate:timeArray[currentCellIndex + 1]];
+        
+        
+        BOOL currentCellSelected = [(NSNumber *)_selectedRowArray[indexPath.row - 1] boolValue];
+        [cell setEnabled:currentCellSelected];
+        
+        // Hide/Show bottom circle view if previous cell is selected/not selected
+        if (previousCellIndex >= 0) {
+            BOOL previousCellSelected = [(NSNumber *)_selectedRowArray[previousCellIndex] boolValue];
+            BOOL topCircleVisible = (!previousCellSelected && currentCellSelected) || (previousCellSelected && !currentCellSelected);
+            
+            [cell setTopCircleViewVisible:topCircleVisible];
+        }
+        
+        // Hide/Show top circle view if next cell is selected/not selected
+        if (nextCellIndex < [_selectedRowArray count]) {
+            BOOL nextCellSelected = [(NSNumber *)_selectedRowArray[nextCellIndex] boolValue];
+            BOOL bottomCircleVisible = (!nextCellSelected && currentCellSelected) || (nextCellSelected && !currentCellSelected);
+            
+            [cell setBottomCircleViewVisible:bottomCircleVisible];
+        }
+    } else if (indexPath.row == 0 && nextCellIndex < [_selectedRowArray count]) { // is top buffer cell
+        BOOL nextCellSelected = [(NSNumber *)_selectedRowArray[nextCellIndex] boolValue];
+        [cell setBottomCircleViewVisible:nextCellSelected];
+    }
     
     return cell;
 }
@@ -238,16 +225,39 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     return cell;
 }
 
+#pragma mark -
+#pragma mark - fetch Items
 - (void)fetchMoreItems {
     [self simulateFetch];
 }
 
 #pragma mark -
+#pragma mark - reset selectedRows 
+- (void)resetSelectedTableViewRows {
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
+    
+    _selectedRowArray = nil;
+    _selectedRowArray = [[NSMutableArray alloc] initWithCapacity:[timeArray count]];
+    
+    for (int index = 0; index <[timeArray count]; index++) {
+        [_selectedRowArray addObject:[NSNumber numberWithBool:NO]];
+    }
+}
+
+
+#pragma mark -
 #pragma mark - UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    _selectedCollectionViewIndex = indexPath.row;
-    [_collectionView reloadData];
-    [_tableView reloadData];
+    
+    // only call if index is not currently selected
+    if (_selectedCollectionViewIndex != indexPath.row) {
+        _selectedCollectionViewIndex = indexPath.row;
+        
+        [self resetSelectedTableViewRows];
+        [_collectionView reloadData];
+        [_tableView reloadData];
+    }
 }
 
 #pragma mark -
@@ -359,8 +369,9 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         if ([timeAvailableArray[index] isKindOfClass:[NSDate class]]) { // is date
             date = timeAvailableArray[index];
         } else { // is string
+            NSDateFormatter *dateFormatter = [[DateFormatterManager sharedManager] jsonDateFormatter];
             NSString *jsonString = timeAvailableArray[index];
-            date = [_dateFormatter dateFromString:jsonString];
+            date = [dateFormatter dateFromString:jsonString];
         }
         
         // add the date to the data dictionary

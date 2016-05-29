@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UILabel *topAmpmLabel;
 @property (nonatomic, strong) UILabel *bottomAmpmLabel;
 
+@property (nonatomic, strong) UIView *lineSeparatorView;
 
 - (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible;
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible;

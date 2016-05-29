@@ -18,7 +18,6 @@ static CGFloat kLabelHeight = 20.0f;
 
 @property (nonatomic, strong) UIView *bottomCircleView;
 @property (nonatomic, strong) UIView *topCircleView;
-@property (nonatomic, strong) UIView *lineSeparatorView;
 
 @property (nonatomic, strong) UIView *timeAreaView;
 
@@ -269,7 +268,6 @@ static CGFloat kLabelHeight = 20.0f;
         _topTimeLabel = [[UILabel alloc] init];
         _topTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _topTimeLabel.font = [UIFont systemFontOfSize:kFontSizeWaitListTime];
-        _topTimeLabel.text = @"12:00";
     }
     
     return _topTimeLabel;
@@ -280,7 +278,6 @@ static CGFloat kLabelHeight = 20.0f;
         _bottomTimeLabel = [[UILabel alloc] init];
         _bottomTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomTimeLabel.font = [UIFont systemFontOfSize:kFontSizeWaitListTime];
-        _bottomTimeLabel.text = @"12:00";
         
     }
     
@@ -292,7 +289,6 @@ static CGFloat kLabelHeight = 20.0f;
         _topAmpmLabel = [[UILabel alloc] init];
         _topAmpmLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _topAmpmLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime - 1];
-        _topAmpmLabel.text = @"PM";
     }
     
     return _topAmpmLabel;
@@ -303,7 +299,6 @@ static CGFloat kLabelHeight = 20.0f;
         _bottomAmpmLabel = [[UILabel alloc] init];
         _bottomAmpmLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomAmpmLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime - 1];
-        _bottomAmpmLabel.text = @"PM";
     }
     
     return _bottomAmpmLabel;
