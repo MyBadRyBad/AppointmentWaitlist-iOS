@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UILabel *dayNumberLabel;
 
 - (void)setCellAsToday:(BOOL)setCellAsToday;
+- (void)setCellAsSelected:(BOOL)setAsSelected;
 
 @end

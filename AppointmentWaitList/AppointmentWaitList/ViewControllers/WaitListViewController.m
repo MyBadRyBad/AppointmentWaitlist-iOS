@@ -25,10 +25,11 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
-@property (nonatomic, weak) NSArray *keyArray;
+@property (nonatomic, strong) NSArray *keyArray;
 @property (nonatomic, strong) NSMutableDictionary *dataDictionary;
 
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
+@property (nonatomic, assign) NSInteger selectedCollectionViewIndex;
 
 @end
 
@@ -49,14 +50,14 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - setup
 - (void)setup {
-    [self setupView];
-    [self setupConstaints];
-    [self setupNavigationBar];
-    
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateFormat:kDateFormatStringJSON];
     
-    _currentCollectionViewIndex = 0;
+    _selectedCollectionViewIndex = 0;
+    
+    [self setupView];
+    [self setupConstaints];
+    [self setupNavigationBar];
     
 }
 
@@ -90,7 +91,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UITableView Delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *key = _keyArray[_currentCollectionViewIndex];
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
     NSArray *timeArray = _dataDictionary[key];
     
     WaitListTableViewCell *selectedCell  = [_tableView cellForRowAtIndexPath:indexPath];
@@ -167,7 +168,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // add buffer cells for bottom and top of tableview
     
-    NSString *key = _keyArray[_currentCollectionViewIndex];
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
     NSArray *timeArray = _dataDictionary[key];
 
     return [timeArray count];
@@ -217,6 +218,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     OpenSlotCollectionViewCell *cell = (OpenSlotCollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
     
+    [cell setCellAsSelected:(indexPath.item == _selectedCollectionViewIndex)];
+    
     return cell;
 }
 
@@ -242,7 +245,9 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    _selectedCollectionViewIndex = indexPath.row;
+    [_collectionView reloadData];
+    [_tableView reloadData];
 }
 
 #pragma mark -
@@ -263,7 +268,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         // convert day into minutes
         unsigned int dayMinutes = (24 * 60) * day;
     
-        // add beginning of the day
+        // add beginning of the ay
         [newTestTimeArray addObject:[startDate dateByAddingDays:day]];
         
         // add increments of minuteIncrement until total hours reached
@@ -305,10 +310,6 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 }
 
 #pragma mark -
-#pragma mark - sortData 
-
-
-#pragma mark -
 #pragma mark - didReceiveMemoryWarning
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -318,8 +319,25 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     _dataDictionary = nil;
     _keyArray = nil;
     
-    // show alert and reset data
-#warning TODO
+    [BackendFunctions
+     fetchAppointmentSlotsOfDays:kAppointmentFetchDefaultDayCount
+     offset:kAppointmentFetchDefaultOffset
+     providerId:kAppointmentFetchDefaultProviderID
+     subdomain:kAppointmentFetchDefaultDomain
+     timezone:kAppointmentFetchDefaultTimezone
+     onCompletion:^(NSDictionary *dictionary, NSError *error) {
+         NSMutableArray *timeArray = nil;
+         id dictData = dictionary[kBackendWaitlistDataKey];
+         
+         if (dictData && [dictData isKindOfClass:[NSArray class]]) {
+             timeArray = [[NSMutableArray alloc] initWithArray:(NSArray *)dictData];
+         }
+         
+         [self setTimeAvailable:timeArray];
+         [_tableView reloadData];
+         [_collectionView reloadData];
+         
+    }];
 }
 
 #pragma mark -
@@ -357,31 +375,38 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         [timeArray addObject:date];
     }
     
-    // get a sorted reference of the keys
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterNoStyle;
-    
-    NSArray *tempKeyArray = [_dataDictionary allKeys];
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    NSMutableArray *sortedKeyArray = [[NSMutableArray alloc] init];
-    
-    // enumerate through the temp keys and convert to nsdate
-    for (NSString *key in tempKeyArray) {
-        [tempArray addObject:[formatter dateFromString:key]];
+    _keyArray = [self getSortedDateKeyArrayFromDateDictionary:_dataDictionary];
+}
+
+- (NSArray *)getSortedDateKeyArrayFromDateDictionary:(NSDictionary *)dateDictionary {
+    if (dateDictionary) {
+        // get a sorted reference of the keys
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterShortStyle;
+        formatter.timeStyle = NSDateFormatterNoStyle;
+        
+        NSArray *tempKeyArray = [_dataDictionary allKeys];
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        NSMutableArray *sortedKeyArray = [[NSMutableArray alloc] init];
+        
+        // enumerate through the temp keys and convert to nsdate
+        for (NSString *key in tempKeyArray) {
+            [tempArray addObject:[formatter dateFromString:key]];
+        }
+        
+        [tempArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [(NSDate *)obj1 compare:(NSDate *)obj2];
+        }];
+        
+        for (NSDate *keyDate in tempArray) {
+            [sortedKeyArray addObject:[formatter stringFromDate:keyDate]];
+        }
+        
+        // get sorted array
+        return  [NSArray arrayWithArray:sortedKeyArray];
+    } else {
+        return nil;
     }
-    
-    [tempArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [(NSDate *)obj1 compare:(NSDate *)obj2];
-    }];
-    
-    for (NSDate *keyDate in tempArray) {
-        [sortedKeyArray addObject:[formatter stringFromDate:keyDate]];
-    }
-    
-    // get sorted array
-    _keyArray = [NSArray arrayWithArray:sortedKeyArray];
-    
 }
 
 #pragma mark -

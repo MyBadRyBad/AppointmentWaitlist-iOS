@@ -112,6 +112,14 @@ static CGFloat const kLabelHeight = 14.0f;
     
 }
 
+- (void)setCellAsSelected:(BOOL)setAsSelected {
+    if (setAsSelected) {
+        self.backgroundColor = [UIColor blueColor];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+}
+
 #pragma mark -
 #pragma mark - getter methods
 - (UILabel *)dayNameLabel {

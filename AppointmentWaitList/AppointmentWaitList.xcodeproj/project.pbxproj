@@ -10,7 +10,6 @@
 		389811201E94089174897953 /* libPods-AppointmentWaitListTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */; };
 		4E87A3A72EC38B5BA1BFABC6 /* libPods-AppointmentWaitList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */; };
 		6E377B6E1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */; };
-		6E58859B1CF78DC300E970C2 /* DataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E58859A1CF78DC300E970C2 /* DataHelper.m */; };
 		6E6CEF911CF66CC200E0B1E4 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */; };
 		6E8A5FB51CF386600083E012 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB41CF386600083E012 /* main.m */; };
 		6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB71CF386600083E012 /* AppDelegate.m */; };
@@ -52,8 +51,6 @@
 		6E377B691CF3DD2500A01BC1 /* kConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kConstants.h; path = Constants/kConstants.h; sourceTree = "<group>"; };
 		6E377B6C1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenSlotCollectionViewCell.h; path = Views/OpenSlotCollectionViewCell.h; sourceTree = "<group>"; };
 		6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenSlotCollectionViewCell.m; path = Views/OpenSlotCollectionViewCell.m; sourceTree = "<group>"; };
-		6E5885991CF78DC300E970C2 /* DataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataHelper.h; path = HelperFiles/DataHelper.h; sourceTree = "<group>"; };
-		6E58859A1CF78DC300E970C2 /* DataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataHelper.m; path = HelperFiles/DataHelper.m; sourceTree = "<group>"; };
 		6E6CEF8F1CF66CC200E0B1E4 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "HelperFiles/NSDate+Utilities.h"; sourceTree = "<group>"; };
 		6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "HelperFiles/NSDate+Utilities.m"; sourceTree = "<group>"; };
 		6E8A5FB01CF386600083E012 /* AppointmentWaitList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentWaitList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,8 +133,6 @@
 			children = (
 				6E6CEF8F1CF66CC200E0B1E4 /* NSDate+Utilities.h */,
 				6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */,
-				6E5885991CF78DC300E970C2 /* DataHelper.h */,
-				6E58859A1CF78DC300E970C2 /* DataHelper.m */,
 			);
 			name = HelperFiles;
 			sourceTree = "<group>";
@@ -572,7 +567,6 @@
 				6E8A5FF51CF398E70083E012 /* WaitListViewController.m in Sources */,
 				6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */,
 				6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */,
-				6E58859B1CF78DC300E970C2 /* DataHelper.m in Sources */,
 				6E6CEF911CF66CC200E0B1E4 /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
