@@ -28,8 +28,10 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 @property (nonatomic, strong) NSMutableArray *selectedRowArray;
 @property (nonatomic, strong) NSMutableDictionary *dataDictionary;
 
+@property (nonatomic, assign) NSInteger fetchOffset;
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
 @property (nonatomic, assign) NSInteger selectedCollectionViewIndex;
+@property (nonatomic, assign) BOOL isTest;
 
 @end
 
@@ -185,7 +187,9 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - UICollectionView DataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_dataDictionary count];
+    
+    // + 1 to trigger fetch
+    return [_dataDictionary count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -238,7 +242,38 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - fetch Items
 - (void)fetchMoreItems {
-    [self simulateFetch];
+    
+    if (_isTest) {
+        [self simulateFetch];
+    } else {
+        [BackendFunctions
+         fetchAppointmentSlotsOfDays:kAppointmentFetchDefaultDayCount
+         offset:(kAppointmentFetchDefaultOffset + 7)
+         providerId:kAppointmentFetchDefaultProviderID
+         subdomain:kAppointmentFetchDefaultDomain
+         timezone:kAppointmentFetchDefaultTimezone
+         onCompletion:^(NSDictionary *dictionary, NSError *error) {
+             if (error) {
+                 NSString *title = NSLocalizedString(@"Uh oh", nil);
+                 NSString *message = NSLocalizedString(@"Error", nil);
+                 
+                 
+                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:[NSString stringWithFormat:@"%@: %@", message, error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+                 
+                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+                 
+                 [alertController addAction:okAction];
+                 
+                 [self presentViewController:alertController animated:YES completion:nil];
+                 
+             } else {
+                 _fetchOffset = _fetchOffset + 7;
+                 
+             }
+         }];
+    }
+    
+
 }
 
 #pragma mark -
@@ -272,6 +307,55 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 #pragma mark -
 #pragma mark - generate test data
+- (void)setAsTest:(BOOL)setAsTest {
+    _isTest = setAsTest;
+    
+    // if there is existing data, clear it and create tests or pull for server
+    if ([_dataDictionary count] > 0) {
+        [_dataDictionary removeAllObjects];
+        _dataDictionary = nil;
+        _keyArray = nil;
+        _selectedRowArray = nil;
+        _dataDictionary = [[NSMutableDictionary alloc] init];
+        
+        if (setAsTest) {
+            [self setTimeAvailable:nil];
+        } else {
+            [BackendFunctions
+             fetchAppointmentSlotsOfDays:kAppointmentFetchDefaultDayCount
+             offset:(kAppointmentFetchDefaultOffset + 7)
+             providerId:kAppointmentFetchDefaultProviderID
+             subdomain:kAppointmentFetchDefaultDomain
+             timezone:kAppointmentFetchDefaultTimezone
+             onCompletion:^(NSDictionary *dictionary, NSError *error) {
+                 if (error) {
+                     NSString *title = NSLocalizedString(@"Uh oh", nil);
+                     NSString *message = NSLocalizedString(@"Error", nil);
+                     
+                     
+                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:[NSString stringWithFormat:@"%@: %@", message, error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+                     
+                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+                     
+                     [alertController addAction:okAction];
+                     
+                     [self presentViewController:alertController animated:YES completion:nil];
+                     
+                 } else {
+                     NSMutableArray *timeArray = nil;
+                     id dictData = dictionary[kBackendWaitlistDataKey];
+                     
+                     if (dictData && [dictData isKindOfClass:[NSArray class]]) {
+                         timeArray = [[NSMutableArray alloc] initWithArray:(NSArray *)dictData];
+                     }
+                     
+                     [self setTimeAvailable:timeArray];
+                 }
+             }];
+        }
+    }
+}
+
 - (NSMutableArray *)createTestDataWithStartDay:(NSDate *)startDate {
     NSMutableArray *newTestTimeArray = [[NSMutableArray alloc] init];
     NSInteger numberOfHoursPerDay = 9;

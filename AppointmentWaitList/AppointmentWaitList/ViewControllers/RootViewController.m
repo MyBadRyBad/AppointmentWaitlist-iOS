@@ -59,7 +59,7 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
                         [self showAlertControllerWithTitle:alertTitle
                                 message:alertMessage
                                 action:^(UIAlertAction *action) {
-                                    [self showWaitListViewControllerWithTimeArray:nil];
+                                    [self showWaitListViewControllerWithTimeArray:nil setAsTest:YES];
                                 }];
             }];
             
@@ -72,7 +72,7 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
                  timeArray = [[NSMutableArray alloc] initWithArray:(NSArray *)dictData];
              }
              
-             [self showWaitListViewControllerWithTimeArray:timeArray];
+             [self showWaitListViewControllerWithTimeArray:timeArray setAsTest:NO];
          }
          
      }];
@@ -97,7 +97,7 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
 
 #pragma mark -
 #pragma mark - pushWaitListViewController
-- (void)showWaitListViewControllerWithTimeArray:(NSArray *)timeArray {
+- (void)showWaitListViewControllerWithTimeArray:(NSArray *)timeArray setAsTest:(BOOL)setAsTest{
     
     WaitListViewController *waitListViewController = [[WaitListViewController alloc] init];
     UIViewController *secondViewController = [[UIViewController alloc] init];
@@ -132,6 +132,7 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
     // set time availability array
     NSMutableArray *timeAvailableArray = (timeArray) ? [NSMutableArray arrayWithArray:timeArray] : nil;
     [waitListViewController setTimeAvailable:timeAvailableArray];
+    [waitListViewController setAsTest:setAsTest];
     
     // setup navigation bar
     [self presentViewController:tabBarController animated:YES completion:nil];
