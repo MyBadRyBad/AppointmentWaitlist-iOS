@@ -18,3 +18,15 @@
 static CGFloat const kFontSizeWaitListTime = 14.0f;
 static CGFloat const kFontSizeOpenSlot = 12.0f;
 
+
+////////////////////////////////////////
+//
+// Date format strings
+//
+////////////////////////////////////////
+static NSString *const kDateFormatStringJSON = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
+static NSString *const kDateFormatShortStyle = @"MM/dd/yyyy";
+static NSString *const kDateFormatTime = @"h:mm";
+static NSString *const kDateFormatShortDayName = @"EEE";
+static NSString *const kDateFormatLongMonth = @"MMMM";
+static NSString *const kDateFormatDayNumber =  @"d";

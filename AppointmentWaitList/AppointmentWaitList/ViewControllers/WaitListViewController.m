@@ -8,7 +8,7 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "DateFormatterManager.h"
+#import "NSDate+Helper.h"
 #import "NSDate+Utilities.h"
 #import "BackendFunctions.h"
 #import "kColorConstants.h"
@@ -131,7 +131,6 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     NSString *key = _keyArray[_selectedCollectionViewIndex];
     NSArray *timeArray = _dataDictionary[key];
-    NSDateFormatter *dateFormatter = [[DateFormatterManager sharedManager] timeDateFormatter];
     
     WaitListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
@@ -141,7 +140,8 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     }
     
     if (indexPath.row == 0) {
-        cell.bottomTimeLabel.text = [dateFormatter stringFromDate:timeArray[indexPath.row]];
+        NSDate *date = timeArray[indexPath.row];
+        cell.bottomTimeLabel.text = [date stringWithFormat:kDateFormatTime];
     }
     
     if (indexPath.row == [timeArray count]) {
@@ -149,8 +149,11 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     }
     
     if (indexPath.row > 0 && indexPath.row < [timeArray count]) {
-        cell.topTimeLabel.text = [dateFormatter stringFromDate:timeArray[currentCellIndex]];
-        cell.bottomTimeLabel.text = [dateFormatter stringFromDate:timeArray[currentCellIndex + 1]];
+        NSDate *currentDate = timeArray[currentCellIndex];
+        NSDate *nextDate = timeArray[currentCellIndex + 1];
+        
+        cell.topTimeLabel.text = [currentDate stringWithFormat:kDateFormatTime];
+        cell.bottomTimeLabel.text = [nextDate stringWithFormat:kDateFormatTime];
         
         
         BOOL currentCellSelected = [(NSNumber *)_selectedRowArray[indexPath.row - 1] boolValue];
@@ -206,6 +209,13 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     OpenSlotCollectionViewCell *cell = (OpenSlotCollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
     
     [cell setCellAsSelected:(indexPath.item == _selectedCollectionViewIndex)];
+    
+    NSString *dateString = _keyArray[indexPath.row];
+    NSDate *cellDate = [NSDate dateFromString:dateString withFormat:kDateFormatShortStyle];
+    
+    cell.dayNameLabel.text = [[cellDate stringWithFormat:kDateFormatShortDayName] uppercaseString];
+    cell.dayNumberLabel.text = [cellDate stringWithFormat:kDateFormatDayNumber];
+    cell.monthLabel.text = [cellDate stringWithFormat:kDateFormatLongMonth];
     
     return cell;
 }
@@ -369,13 +379,12 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         if ([timeAvailableArray[index] isKindOfClass:[NSDate class]]) { // is date
             date = timeAvailableArray[index];
         } else { // is string
-            NSDateFormatter *dateFormatter = [[DateFormatterManager sharedManager] jsonDateFormatter];
             NSString *jsonString = timeAvailableArray[index];
-            date = [dateFormatter dateFromString:jsonString];
+            date = [NSDate dateFromString:jsonString];
         }
         
         // add the date to the data dictionary
-        NSString *key = [date shortDateString];
+        NSString *key = [date stringWithFormat:kDateFormatShortStyle];
         NSMutableArray *timeArray = [_dataDictionary objectForKey:key];
         
         if (!timeArray || [timeArray isEqual:[NSNull null]]) {
@@ -392,17 +401,13 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 - (NSArray *)getSortedDateKeyArrayFromDateDictionary:(NSDictionary *)dateDictionary {
     if (dateDictionary) {
         // get a sorted reference of the keys
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.timeStyle = NSDateFormatterNoStyle;
-        
         NSArray *tempKeyArray = [_dataDictionary allKeys];
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         NSMutableArray *sortedKeyArray = [[NSMutableArray alloc] init];
         
         // enumerate through the temp keys and convert to nsdate
         for (NSString *key in tempKeyArray) {
-            [tempArray addObject:[formatter dateFromString:key]];
+            [tempArray addObject:[NSDate dateFromString:key withFormat:kDateFormatShortStyle]];
         }
         
         [tempArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -410,7 +415,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
         }];
         
         for (NSDate *keyDate in tempArray) {
-            [sortedKeyArray addObject:[formatter stringFromDate:keyDate]];
+            [sortedKeyArray addObject:[keyDate stringWithFormat:kDateFormatShortStyle]];
         }
         
         // get sorted array

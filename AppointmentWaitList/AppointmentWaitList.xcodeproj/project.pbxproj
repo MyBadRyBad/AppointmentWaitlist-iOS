@@ -10,7 +10,7 @@
 		389811201E94089174897953 /* libPods-AppointmentWaitListTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */; };
 		4E87A3A72EC38B5BA1BFABC6 /* libPods-AppointmentWaitList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D71A42C14767A53BCB3261C /* libPods-AppointmentWaitList.a */; };
 		6E377B6E1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */; };
-		6E601AD71CFA9AA40067994C /* DateFormatterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E601AD61CFA9AA40067994C /* DateFormatterManager.m */; };
+		6E5FDBC81CFBB99000AD9F2A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FDBC71CFBB98F00AD9F2A /* NSDate+Helper.m */; };
 		6E6CEF911CF66CC200E0B1E4 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */; };
 		6E8A5FB51CF386600083E012 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB41CF386600083E012 /* main.m */; };
 		6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FB71CF386600083E012 /* AppDelegate.m */; };
@@ -52,8 +52,8 @@
 		6E377B691CF3DD2500A01BC1 /* kConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kConstants.h; path = Constants/kConstants.h; sourceTree = "<group>"; };
 		6E377B6C1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenSlotCollectionViewCell.h; path = Views/OpenSlotCollectionViewCell.h; sourceTree = "<group>"; };
 		6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenSlotCollectionViewCell.m; path = Views/OpenSlotCollectionViewCell.m; sourceTree = "<group>"; };
-		6E601AD51CFA9AA40067994C /* DateFormatterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormatterManager.h; path = HelperFiles/DateFormatterManager.h; sourceTree = "<group>"; };
-		6E601AD61CFA9AA40067994C /* DateFormatterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormatterManager.m; path = HelperFiles/DateFormatterManager.m; sourceTree = "<group>"; };
+		6E5FDBC61CFBB98F00AD9F2A /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "HelperFiles/NSDate+Helper.h"; sourceTree = "<group>"; };
+		6E5FDBC71CFBB98F00AD9F2A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "HelperFiles/NSDate+Helper.m"; sourceTree = "<group>"; };
 		6E6CEF8F1CF66CC200E0B1E4 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "HelperFiles/NSDate+Utilities.h"; sourceTree = "<group>"; };
 		6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "HelperFiles/NSDate+Utilities.m"; sourceTree = "<group>"; };
 		6E8A5FB01CF386600083E012 /* AppointmentWaitList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentWaitList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,8 +134,8 @@
 		6E6CEF8B1CF66C5F00E0B1E4 /* HelperFiles */ = {
 			isa = PBXGroup;
 			children = (
-				6E601AD51CFA9AA40067994C /* DateFormatterManager.h */,
-				6E601AD61CFA9AA40067994C /* DateFormatterManager.m */,
+				6E5FDBC61CFBB98F00AD9F2A /* NSDate+Helper.h */,
+				6E5FDBC71CFBB98F00AD9F2A /* NSDate+Helper.m */,
 				6E6CEF8F1CF66CC200E0B1E4 /* NSDate+Utilities.h */,
 				6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */,
 			);
@@ -563,10 +563,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E5FDBC81CFBB99000AD9F2A /* NSDate+Helper.m in Sources */,
 				6E8A5FC11CF386600083E012 /* AppointmentWaitList.xcdatamodeld in Sources */,
 				6E8A5FB81CF386600083E012 /* AppDelegate.m in Sources */,
 				6E8A5FF41CF398E70083E012 /* RootViewController.m in Sources */,
-				6E601AD71CFA9AA40067994C /* DateFormatterManager.m in Sources */,
 				6E377B6E1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m in Sources */,
 				6E8A5FB51CF386600083E012 /* main.m in Sources */,
 				6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */,

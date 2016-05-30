@@ -70,11 +70,5 @@ static NSInteger const kAppointmentFetchDefaultProviderID = 1;
 static NSString *const kAppointmentFetchDefaultDomain = @"test";
 static NSString *const kAppointmentFetchDefaultTimezone = @"America/New_York";
 
-////////////////////////////////////////////////////////
-//
-// Default variables for appointment slot fetch
-//
-////////////////////////////////////////////////////////
-static NSString *const kDateFormatStringJSON = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
 
 
