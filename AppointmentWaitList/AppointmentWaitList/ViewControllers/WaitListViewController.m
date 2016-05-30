@@ -53,6 +53,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark - setup
 - (void)setup {
     _selectedCollectionViewIndex = 0;
+    _fetchOffset = 0;
     [self resetSelectedTableViewRows];
     
     [self setupView];
@@ -194,12 +195,6 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item < [_dataDictionary count]) {
-        
-        // pre-fetch the next seven days
-        if(indexPath.item == ([_dataDictionary count] - 7 + 1)){
-            [self fetchMoreItems];
-        }
-        
         return [self openSlotCollectionCellForIndexPath:indexPath];
     }
     else {
@@ -244,6 +239,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 - (void)fetchMoreItems {
     
     if (_isTest) {
+        _fetchOffset = _fetchOffset + 7;
         [self simulateFetch];
     } else {
         [BackendFunctions
@@ -267,7 +263,19 @@ static CGFloat const kCollectionViewHeight = 64.0f;
                  [self presentViewController:alertController animated:YES completion:nil];
                  
              } else {
+                 
+                 // first set the offset, so that next pull will be 7 next days
                  _fetchOffset = _fetchOffset + 7;
+                 
+                 // get time array from dict and set the time available
+                 NSMutableArray *timeArray = nil;
+                 id dictData = dictionary[kBackendWaitlistDataKey];
+                 
+                 if (dictData && [dictData isKindOfClass:[NSArray class]]) {
+                     timeArray = [[NSMutableArray alloc] initWithArray:(NSArray *)dictData];
+                 }
+                 
+                 [self setTimeAvailable:timeArray];
                  
              }
          }];
@@ -387,13 +395,13 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 }
 
 - (void)simulateFetch {
-    NSMutableArray *newData = [NSMutableArray array];
+  /*  NSMutableArray *newData = [NSMutableArray array];
     NSInteger loadSize = 7; // load next seven days
     for (int i = _currentCollectionViewIndex * loadSize; i < ((_currentCollectionViewIndex * loadSize) + loadSize); i++) {
         [newData addObject:[NSString stringWithFormat:@"Item #%d", i]];
     }
     
-    _currentCollectionViewIndex++;
+    _currentCollectionViewIndex++; */
     
     
     // Simulate an async load...
@@ -402,13 +410,13 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-        // Add the new data to our local collection of data.
-        for (int i = 0; i < newData.count; i++) {
-         //   [_dataArray addObject:newData[i]];
-        }
+        // create new seven days
+        NSDate *nextSevenDate = [[NSDate date] dateByAddingDays:_fetchOffset];
+        NSMutableArray *newDaysArray = [self createTestDataWithStartDay:nextSevenDate];
+        [self setTimeAvailable:newDaysArray];
         
         // Tell the collectionView to reload.
-        [self.collectionView reloadData];
+        [_collectionView reloadData];
         
     });
 }
@@ -447,7 +455,7 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 #pragma mark -
 #pragma mark - setter methods
 - (void)setTimeAvailable:(NSMutableArray *)timeAvailableArray {
-    
+    // create test data only when recieving nil
     if (!timeAvailableArray || [timeAvailableArray count] == 0) {
         timeAvailableArray = [self createTestDataWithStartDay:[NSDate date]];
     }
