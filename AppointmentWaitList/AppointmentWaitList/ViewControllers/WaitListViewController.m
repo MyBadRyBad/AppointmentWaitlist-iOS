@@ -8,6 +8,7 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ActionButton.h"
 #import "NSDate+Helper.h"
 #import "NSDate+Utilities.h"
 #import "BackendFunctions.h"
@@ -21,8 +22,11 @@ static NSString *const kCollectionCellIdentifier = @"ItemCellID";
 static NSString *const kLoadingCollectionCellIdentifer = @"LoadingCellIdentifier";
 
 static CGFloat const kCollectionViewHeight = 64.0f;
+static CGFloat const kActionButtonHeight = 44.0f;
 
 @interface WaitListViewController  ()
+
+@property (nonatomic, strong) ActionButton *actionButton;
 
 @property (nonatomic, strong) NSArray *keyArray;
 @property (nonatomic, strong) NSMutableArray *selectedRowArray;
@@ -32,6 +36,9 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 @property (nonatomic, assign) NSInteger currentCollectionViewIndex;
 @property (nonatomic, assign) NSInteger selectedCollectionViewIndex;
 @property (nonatomic, assign) BOOL isTest;
+
+// constraints for actionbutton
+@property (nonatomic, strong) NSLayoutConstraint *verticalConstraintActionButton;
 
 @end
 
@@ -67,19 +74,35 @@ static CGFloat const kCollectionViewHeight = 64.0f;
     
     [self.view addSubview:[self tableView]];
     [self.view addSubview:[self collectionView]];
+    [self.view addSubview:[self actionButton]];
 }
 
 - (void)setupConstaints {
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _collectionView);
-    NSDictionary *metrics = @{@"collectionViewHeight" : @(kCollectionViewHeight)};
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _collectionView, _actionButton);
+    NSDictionary *metrics = @{@"collectionViewHeight" : @(kCollectionViewHeight),
+                              @"actionButtonHeight" : @(kActionButtonHeight)};
     
     // setup vertical constraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_collectionView(collectionViewHeight)][_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_actionButton(actionButtonHeight)]" options:0 metrics:metrics views:viewsDictionary]];
+    
+    _verticalConstraintActionButton = [NSLayoutConstraint constraintWithItem:_actionButton
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:(kActionButtonHeight * 2)];
+    
+    [self.view addConstraint:_verticalConstraintActionButton];
     
     // setup horizontal constraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|" options:0 metrics:metrics views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_collectionView]|" options:0 metrics:metrics views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_actionButton]|" options:0 metrics:metrics views:viewsDictionary]];
     
 }
 
@@ -314,6 +337,32 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 }
 
 #pragma mark -
+#pragma mark - show/hide actionButton
+- (void)showActionButtonAnimated:(BOOL)isAnimated {
+    _verticalConstraintActionButton.constant = (kActionButtonHeight * 2);
+    
+    if (isAnimated) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+            [self.view setNeedsLayout];
+        } completion:nil];
+    } else {
+        [self.view setNeedsLayout];
+    }
+}
+
+- (void)hideActionButtonAnimated:(BOOL)isAnimated {
+    _verticalConstraintActionButton.constant = -(kActionButtonHeight * 2);
+    
+    if (isAnimated) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn  animations:^{
+            [self.view setNeedsLayout];
+        } completion:nil];
+    } else {
+        [self.view setNeedsLayout];
+    }
+}
+
+#pragma mark -
 #pragma mark - generate test data
 - (void)setAsTest:(BOOL)setAsTest {
     _isTest = setAsTest;
@@ -519,6 +568,16 @@ static CGFloat const kCollectionViewHeight = 64.0f;
 
 #pragma mark -
 #pragma mark - getter methods
+- (ActionButton *)actionButton {
+    if (!_actionButton) {
+        _actionButton = [[ActionButton alloc] init];
+        _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _actionButton.backgroundColor = [UIColor blackColor];
+    }
+    
+    return _actionButton;
+}
+
 -(UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];

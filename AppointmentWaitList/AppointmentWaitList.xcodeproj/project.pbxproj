@@ -25,6 +25,7 @@
 		6E8A5FF81CF399170083E012 /* BackendFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FF71CF399170083E012 /* BackendFunctions.m */; };
 		6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FFB1CF399290083E012 /* kColorConstants.m */; };
 		6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */; };
+		6ECF73F41CFE917200AC502D /* ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECF73F31CFE917200AC502D /* ActionButton.m */; };
 		E99FE74148C2A63853B323FD /* libPods-AppointmentWaitListUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,8 @@
 		6E8A5FFB1CF399290083E012 /* kColorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = kColorConstants.m; path = Constants/kColorConstants.m; sourceTree = "<group>"; };
 		6E8A5FFF1CF3995E0083E012 /* WaitListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitListTableViewCell.h; path = Views/WaitListCell/WaitListTableViewCell.h; sourceTree = "<group>"; };
 		6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListTableViewCell.m; path = Views/WaitListCell/WaitListTableViewCell.m; sourceTree = "<group>"; };
+		6ECF73F21CFE917200AC502D /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionButton.h; path = Views/ActionButton.h; sourceTree = "<group>"; };
+		6ECF73F31CFE917200AC502D /* ActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionButton.m; path = Views/ActionButton.m; sourceTree = "<group>"; };
 		B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +263,7 @@
 		6E8A5FEE1CF398B90083E012 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6ECF73F51CFE917700AC502D /* ActionButton */,
 				6E8A5FFD1CF3993B0083E012 /* WaitListTableViewCell */,
 				6E8A5FFE1CF399450083E012 /* OpenSlotCollectionViewCell */,
 			);
@@ -290,6 +294,15 @@
 				6E377B6D1CF3F5BA00A01BC1 /* OpenSlotCollectionViewCell.m */,
 			);
 			name = OpenSlotCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		6ECF73F51CFE917700AC502D /* ActionButton */ = {
+			isa = PBXGroup;
+			children = (
+				6ECF73F21CFE917200AC502D /* ActionButton.h */,
+				6ECF73F31CFE917200AC502D /* ActionButton.m */,
+			);
+			name = ActionButton;
 			sourceTree = "<group>";
 		};
 		D30466A32F56B2B9D6304C24 /* Frameworks */ = {
@@ -574,6 +587,7 @@
 				6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */,
 				6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */,
 				6E6CEF911CF66CC200E0B1E4 /* NSDate+Utilities.m in Sources */,
+				6ECF73F41CFE917200AC502D /* ActionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
