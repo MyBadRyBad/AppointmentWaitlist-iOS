@@ -75,6 +75,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
     [self.view addSubview:[self tableView]];
     [self.view addSubview:[self collectionView]];
     [self.view addSubview:[self actionButton]];
+    _actionButton.hidden = YES;
 }
 
 - (void)setupConstaints {
@@ -93,7 +94,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
                                                                       toItem:self.view
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.0
-                                                                    constant:(kActionButtonHeight * 2)];
+                                                                    constant:kActionButtonHeight];
     
     [self.view addConstraint:_verticalConstraintActionButton];
     
@@ -120,6 +121,15 @@ static CGFloat const kActionButtonHeight = 44.0f;
     if (indexPath.row > 0 && indexPath.row < [_selectedRowArray count]) {
         NSNumber *isSelected = (NSNumber *)_selectedRowArray[indexPath.row - 1];
         _selectedRowArray[indexPath.row - 1] = [NSNumber numberWithBool:![isSelected boolValue]];
+        
+        // show actionButton if is hidden and user has a row selected
+        if (_actionButton.isHidden && [_selectedRowArray containsObject:@(YES)]) {
+            [self showActionButtonAnimated:YES];
+        }
+        // hide actionButton if is shown and there are no longer any selected rows
+        else if (!_actionButton.isHidden && ![_selectedRowArray containsObject:@(YES)]) {
+            [self hideActionButtonAnimated:YES];
+        }
         
         [_tableView reloadData];
     }
@@ -339,26 +349,29 @@ static CGFloat const kActionButtonHeight = 44.0f;
 #pragma mark -
 #pragma mark - show/hide actionButton
 - (void)showActionButtonAnimated:(BOOL)isAnimated {
-    _verticalConstraintActionButton.constant = (kActionButtonHeight * 2);
+    _verticalConstraintActionButton.constant = 0;
+    _actionButton.hidden = NO;
     
     if (isAnimated) {
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
-            [self.view setNeedsLayout];
+        [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+            [self.view layoutIfNeeded];
         } completion:nil];
     } else {
-        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
     }
 }
 
 - (void)hideActionButtonAnimated:(BOOL)isAnimated {
-    _verticalConstraintActionButton.constant = -(kActionButtonHeight * 2);
+    _verticalConstraintActionButton.constant = kActionButtonHeight;
     
     if (isAnimated) {
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn  animations:^{
-            [self.view setNeedsLayout];
-        } completion:nil];
+        [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseIn  animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _actionButton.hidden = YES;
+        }];
     } else {
-        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
     }
 }
 
