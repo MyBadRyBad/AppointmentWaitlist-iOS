@@ -14,6 +14,9 @@ static CGFloat kCircleViewSize = 14.0f;
 static CGFloat kTimeAreaWidth = 90.0f;
 static CGFloat kLabelHeight = 20.0f;
 
+static CGFloat kLineSeparatorDefaultHeight = 0.5f;
+static CGFloat kLineSeparatorHighlightedHeight = 2.0f;
+
 @interface WaitListTableViewCell()
 
 @property (nonatomic, strong) UIView *bottomCircleView;
@@ -21,7 +24,9 @@ static CGFloat kLabelHeight = 20.0f;
 
 @property (nonatomic, strong) UIView *timeAreaView;
 
-// this.selected not changing --> hacky solution part 2
+@property (nonatomic, strong) NSLayoutConstraint *layoutConstraintLineSeparatorHeight;
+
+// this.selected not changing --> hacky solution part 2 electric boogaloo
 @property (nonatomic, assign) BOOL enabled;
 
 @end
@@ -131,8 +136,6 @@ static CGFloat kLabelHeight = 20.0f;
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_topCircleView(circleViewSize)]" options:0 metrics:metrics views:viewsDictionary]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lineSeparatorView(0.5)]" options:0 metrics:metrics views:viewsDictionary]];
-    
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_bottomTimeLabel
                                                                  attribute:NSLayoutAttributeBottom
                                                                  relatedBy:NSLayoutRelationEqual
@@ -188,6 +191,18 @@ static CGFloat kLabelHeight = 20.0f;
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
                                                                   constant:-(kCircleViewSize * 0.5)]];
+    
+    _layoutConstraintLineSeparatorHeight = [NSLayoutConstraint constraintWithItem:_lineSeparatorView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:kLineSeparatorDefaultHeight];
+    
+    [self addConstraint:_layoutConstraintLineSeparatorHeight];
+    
+    
     
     
     // setup horizontal constraints
@@ -252,6 +267,19 @@ static CGFloat kLabelHeight = 20.0f;
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible {
     if (_topCircleView) {
         _topCircleView.hidden = !topCircleViewVisible;
+    }
+}
+
+- (void)highlightLineSeparator:(BOOL)shouldHighlight {
+    if (shouldHighlight) {
+        _lineSeparatorView.backgroundColor = [UIColor blueColor];
+        _layoutConstraintLineSeparatorHeight.constant = kLineSeparatorHighlightedHeight;
+        [self.contentView layoutIfNeeded];
+        
+    } else {
+        _lineSeparatorView.backgroundColor = [UIColor blackColor];
+        _layoutConstraintLineSeparatorHeight.constant = kLineSeparatorDefaultHeight;
+        [self.contentView layoutIfNeeded];
     }
 }
 

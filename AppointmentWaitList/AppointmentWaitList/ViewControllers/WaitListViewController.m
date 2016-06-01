@@ -239,10 +239,12 @@ static CGFloat const kActionButtonHeight = 44.0f;
             BOOL bottomCircleVisible = (!nextCellSelected && currentCellSelected) || (nextCellSelected && !currentCellSelected);
             
             [cell setBottomCircleViewVisible:bottomCircleVisible];
+            [cell highlightLineSeparator:bottomCircleVisible];
         }
     } else if (indexPath.row == 0 && nextCellIndex < [_selectedRowArray count]) { // is top buffer cell
         BOOL nextCellSelected = [(NSNumber *)_selectedRowArray[nextCellIndex] boolValue];
         [cell setBottomCircleViewVisible:nextCellSelected];
+        [cell highlightLineSeparator:nextCellSelected];
     }
 }
 
@@ -283,7 +285,8 @@ static CGFloat const kActionButtonHeight = 44.0f;
 
 - (UICollectionViewCell *)loadingCollectionCellForIndexPath:(NSIndexPath *)indexPath {
     
-    OpenSlotCollectionViewCell *cell = (OpenSlotCollectionViewCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:kLoadingCollectionCellIdentifer forIndexPath:indexPath];
+    
+    UICollectionViewCell *cell = (UICollectionViewCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:kLoadingCollectionCellIdentifer forIndexPath:indexPath];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     

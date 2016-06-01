@@ -16,4 +16,5 @@
 - (void)setTimeAvailable:(NSMutableArray *)timeAvailableArray;
 - (void)setAsTest:(BOOL)setAsTest;
 
+
 @end

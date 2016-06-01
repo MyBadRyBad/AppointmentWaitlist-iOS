@@ -22,6 +22,7 @@
 
 - (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible;
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible;
+- (void)highlightLineSeparator:(BOOL)shouldHighlight;
 
 - (void)setEnabled:(BOOL)enabled;
 - (BOOL)isEnabled;
