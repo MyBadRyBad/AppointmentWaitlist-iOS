@@ -160,13 +160,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger currentCellIndex = indexPath.row - 1;
-    NSInteger previousCellIndex = currentCellIndex - 1;
-    NSInteger nextCellIndex = currentCellIndex + 1;
     NSString *cellID = [NSString stringWithFormat:@"%@-%d-%d", @"cellID", indexPath.section, indexPath.row];
-    
-    NSString *key = _keyArray[_selectedCollectionViewIndex];
-    NSArray *timeArray = _dataDictionary[key];
     
     WaitListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
@@ -175,9 +169,23 @@ static CGFloat const kActionButtonHeight = 44.0f;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    [self setupWaitListTableViewCell:cell indexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)setupWaitListTableViewCell:(WaitListTableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    NSInteger currentCellIndex = indexPath.row - 1;
+    NSInteger previousCellIndex = currentCellIndex - 1;
+    NSInteger nextCellIndex = currentCellIndex + 1;
+    
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
+    
     if (indexPath.row == 0) {
         NSDate *date = timeArray[indexPath.row];
         cell.bottomTimeLabel.text = [date stringWithFormat:kDateFormatTime];
+        cell.bottomAmpmLabel.text = [date stringWithFormat:@"a"];
     }
     
     if (indexPath.row == [timeArray count]) {
@@ -188,10 +196,32 @@ static CGFloat const kActionButtonHeight = 44.0f;
         NSDate *currentDate = timeArray[currentCellIndex];
         NSDate *nextDate = timeArray[currentCellIndex + 1];
         
+        
+        // setup time labels
         cell.topTimeLabel.text = [currentDate stringWithFormat:kDateFormatTime];
         cell.bottomTimeLabel.text = [nextDate stringWithFormat:kDateFormatTime];
         
+        // display AM/PM for first cell
+        if (indexPath.row == 1) {
+            cell.topAmpmLabel.text = [currentDate stringWithFormat:@"a"];
+        } else { // display PM only if previous cell was in AM
+            
+            NSDate *previousDate = timeArray[currentCellIndex - 1];
+            NSString *previousAmpmText = [previousDate stringWithFormat:@"a"];
+            NSString *currentAmpmText = [currentDate stringWithFormat:@"a"];
+            NSString *nextAmPmText = [nextDate stringWithFormat:@"a"];
+            
+            if (![currentAmpmText isEqualToString:previousAmpmText]) {
+                cell.topAmpmLabel.text = currentAmpmText;
+            }
+            
+            if (![currentAmpmText isEqualToString:nextAmPmText]) {
+                cell.bottomAmpmLabel.text = nextAmPmText;
+            }
+            
+        }
         
+        // now check for cell selection
         BOOL currentCellSelected = [(NSNumber *)_selectedRowArray[indexPath.row - 1] boolValue];
         [cell setEnabled:currentCellSelected];
         
@@ -214,9 +244,8 @@ static CGFloat const kActionButtonHeight = 44.0f;
         BOOL nextCellSelected = [(NSNumber *)_selectedRowArray[nextCellIndex] boolValue];
         [cell setBottomCircleViewVisible:nextCellSelected];
     }
-    
-    return cell;
 }
+
 
 #pragma mark -
 #pragma mark - UICollectionView DataSource
