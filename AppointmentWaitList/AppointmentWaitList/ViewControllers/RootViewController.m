@@ -123,11 +123,23 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
     // setup tab bar and tabBarItems
     [tabBarController setViewControllers:tabViewControllers];
     
-    navigationWaitListController.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"" image:homeImage selectedImage:homeImageSelected];
+    navigationWaitListController.tabBarItem =[[UITabBarItem alloc] initWithTitle:@""
+                                                                           image:homeImage
+                                                                   selectedImage:homeImageSelected];
     
-    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:chatImage selectedImage:chatImageSelected];
     
-    thirdViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:settingsImage selectedImage:settingsImageSelected];
+    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@""
+                                                                    image:chatImage
+                                                            selectedImage:chatImageSelected];
+    
+    thirdViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@""
+                                                                   image:settingsImage
+                                                           selectedImage:settingsImageSelected];
+    
+    // adjust the tab bar icons down to center them
+    navigationWaitListController.tabBarItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    secondViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+    thirdViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
     
     // set time availability array
     NSMutableArray *timeAvailableArray = (timeArray) ? [NSMutableArray arrayWithArray:timeArray] : nil;

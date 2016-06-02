@@ -18,6 +18,15 @@
 static CGFloat const kFontSizeWaitListTime = 14.0f;
 static CGFloat const kFontSizeOpenSlot = 12.0f;
 
+static CGFloat const kFontSizeNavigationBar = 16.0f;
+
+////////////////////////////////////////
+//
+// Image constants
+//
+////////////////////////////////////////
+static CGFloat const kImageSizeArrow = 20.0f;
+
 
 ////////////////////////////////////////
 //

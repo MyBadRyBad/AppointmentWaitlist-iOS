@@ -7,6 +7,7 @@
 //
 
 #import "ActionButton.h"
+#import "kConstants.h"
 
 @implementation ActionButton
 
@@ -62,7 +63,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_iconImageView]|" options:0 metrics:metrics views:viewsDictionary]];
     
     // add horizontal constraints
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_nameLabel][_iconImageView(imageViewWidth)]" options:0 metrics:metrics views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_nameLabel]-[_iconImageView(imageViewWidth)]|" options:0 metrics:metrics views:viewsDictionary]];
     
 }
 
@@ -73,7 +74,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        
     }
     
     return _nameLabel;

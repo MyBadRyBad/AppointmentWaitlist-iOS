@@ -8,6 +8,7 @@
 
 #import "WaitListViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <IonIcons.h>
 #import "ActionButton.h"
 #import "NSDate+Helper.h"
 #import "NSDate+Utilities.h"
@@ -20,6 +21,8 @@
 
 static NSString *const kCollectionCellIdentifier = @"ItemCellID";
 static NSString *const kLoadingCollectionCellIdentifer = @"LoadingCellIdentifier";
+
+static NSString *const kNavigationTitle = @"Select a waitlist time range";
 
 static CGFloat const kCollectionViewHeight = 64.0f;
 static CGFloat const kActionButtonHeight = 44.0f;
@@ -108,9 +111,36 @@ static CGFloat const kActionButtonHeight = 44.0f;
 }
 
 - (void)setupNavigationBar {
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     
+    // set up navigation Bar
+    self.navigationItem.title = NSLocalizedString(kNavigationTitle, nil);
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor colorWithWhite:1.0f alpha:1.0f], NSForegroundColorAttributeName,
+      shadow,NSShadowAttributeName,
+      shadow, NSShadowAttributeName,
+      [UIFont systemFontOfSize:kFontSizeNavigationBar], NSFontAttributeName,
+      nil]];
+    
+    
+    // initialize back button
+    UIImage *image = [IonIcons imageWithIcon:ion_arrow_left_c size:kImageSizeArrow color:[UIColor whiteColor]];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton:)];
+    
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+//    [self.navigationController.navigationBar setBarTintColor:[kColorConstants navigationBarColor:1.0f]];
+//    [self.navigationController.navigationBar setTintColor:[kColorConstants navigationBarColor:1.0f]];
 }
 
+
+#pragma mark -
+#pragma mark - navigationBar
+- (void)didPressBackButton:(id)selector {
+    // do nothing
+}
 
 
 #pragma mark -
@@ -124,11 +154,11 @@ static CGFloat const kActionButtonHeight = 44.0f;
         
         // show actionButton if is hidden and user has a row selected
         if (_actionButton.isHidden && [_selectedRowArray containsObject:@(YES)]) {
-            [self showActionButtonAnimated:YES];
+            [self showActionButton:YES isAnimated:YES];
         }
         // hide actionButton if is shown and there are no longer any selected rows
         else if (!_actionButton.isHidden && ![_selectedRowArray containsObject:@(YES)]) {
-            [self hideActionButtonAnimated:YES];
+            [self showActionButton:NO isAnimated:YES];
         }
         
         [_tableView reloadData];
@@ -143,6 +173,13 @@ static CGFloat const kActionButtonHeight = 44.0f;
     return nil;
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *key = _keyArray[_selectedCollectionViewIndex];
+    NSArray *timeArray = _dataDictionary[key];
+    
+    return (indexPath.row == [timeArray count]) ? 50.0f : 36.0f;
+}
 #pragma mark -
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -276,9 +313,16 @@ static CGFloat const kActionButtonHeight = 44.0f;
     NSString *dateString = _keyArray[indexPath.row];
     NSDate *cellDate = [NSDate dateFromString:dateString withFormat:kDateFormatShortStyle];
     
-    cell.dayNameLabel.text = [[cellDate stringWithFormat:kDateFormatShortDayName] uppercaseString];
-    cell.dayNumberLabel.text = [cellDate stringWithFormat:kDateFormatDayNumber];
-    cell.monthLabel.text = [cellDate stringWithFormat:kDateFormatLongMonth];
+    // check if the cell is today, and show today label
+    if ([dateString isEqualToString:[[NSDate date] stringWithFormat:kDateFormatShortStyle]]) {
+        [cell setCellAsToday:YES];
+        
+    } else { // not today
+        cell.dayNameLabel.text = [[cellDate stringWithFormat:kDateFormatShortDayName] uppercaseString];
+        cell.dayNumberLabel.text = [cellDate stringWithFormat:kDateFormatDayNumber];
+        cell.monthLabel.text = [cellDate stringWithFormat:kDateFormatLongMonth];
+        [cell setCellAsToday:NO];
+    }
     
     return cell;
 }
@@ -298,6 +342,22 @@ static CGFloat const kActionButtonHeight = 44.0f;
     
     return cell;
 }
+
+#pragma mark -
+#pragma mark - UICollectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // only call if index is not currently selected
+    if (_selectedCollectionViewIndex != indexPath.row) {
+        _selectedCollectionViewIndex = indexPath.row;
+        
+        [self resetSelectedTableViewRows];
+        [self showActionButton:NO isAnimated:YES];
+        [_collectionView reloadData];
+        [_tableView reloadData];
+    }
+}
+
 
 #pragma mark -
 #pragma mark - fetch Items
@@ -363,50 +423,34 @@ static CGFloat const kActionButtonHeight = 44.0f;
     }
 }
 
-
-#pragma mark -
-#pragma mark - UICollectionView Delegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // only call if index is not currently selected
-    if (_selectedCollectionViewIndex != indexPath.row) {
-        _selectedCollectionViewIndex = indexPath.row;
-        
-        [self resetSelectedTableViewRows];
-        [_collectionView reloadData];
-        [_tableView reloadData];
-    }
-}
-
 #pragma mark -
 #pragma mark - show/hide actionButton
-- (void)showActionButtonAnimated:(BOOL)isAnimated {
-    _verticalConstraintActionButton.constant = 0;
-    _actionButton.hidden = NO;
-    
-    if (isAnimated) {
-        [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+- (void)showActionButton:(BOOL)showActionButton isAnimated:(BOOL)isAnimated {
+    if (showActionButton) {
+        _verticalConstraintActionButton.constant = 0;
+        _actionButton.hidden = NO;
+        
+        if (isAnimated) {
+            [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+                [self.view layoutIfNeeded];
+            } completion:nil];
+        } else {
             [self.view layoutIfNeeded];
-        } completion:nil];
+        }
     } else {
-        [self.view layoutIfNeeded];
+        _verticalConstraintActionButton.constant = kActionButtonHeight;
+        
+        if (isAnimated) {
+            [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseIn  animations:^{
+                [self.view layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                _actionButton.hidden = YES;
+            }];
+        } else {
+            [self.view layoutIfNeeded];
+        }
     }
 }
-
-- (void)hideActionButtonAnimated:(BOOL)isAnimated {
-    _verticalConstraintActionButton.constant = kActionButtonHeight;
-    
-    if (isAnimated) {
-        [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveEaseIn  animations:^{
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            _actionButton.hidden = YES;
-        }];
-    } else {
-        [self.view layoutIfNeeded];
-    }
-}
-
 #pragma mark -
 #pragma mark - generate test data
 - (void)setAsTest:(BOOL)setAsTest {
@@ -618,6 +662,14 @@ static CGFloat const kActionButtonHeight = 44.0f;
         _actionButton = [[ActionButton alloc] init];
         _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
         _actionButton.backgroundColor = [UIColor blackColor];
+        
+        _actionButton.nameLabel.text = NSLocalizedString(@"Add me to waitlist", nil);
+        _actionButton.nameLabel.textColor = [UIColor whiteColor];
+        _actionButton.nameLabel.textAlignment = NSTextAlignmentRight;
+        
+        UIImage *arrowImage = [IonIcons imageWithIcon:ion_arrow_right_c size:kImageSizeArrow color:[UIColor whiteColor]];
+        _actionButton.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _actionButton.iconImageView.image = arrowImage;
     }
     
     return _actionButton;

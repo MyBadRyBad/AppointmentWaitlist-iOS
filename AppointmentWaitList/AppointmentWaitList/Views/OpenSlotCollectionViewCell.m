@@ -110,6 +110,10 @@ static CGFloat const kLabelHeight = 14.0f;
 #pragma mark - set cell
 - (void)setCellAsToday:(BOOL)setCellAsToday {
     
+    _dayNameLabel.hidden = setCellAsToday;
+    _monthLabel.hidden = setCellAsToday;
+    _dayNumberLabel.hidden = setCellAsToday;
+    _todayLabel.hidden = !setCellAsToday;
 }
 
 - (void)setCellAsSelected:(BOOL)setAsSelected {
@@ -163,6 +167,7 @@ static CGFloat const kLabelHeight = 14.0f;
         _todayLabel = [[UILabel alloc] init];
         _todayLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _todayLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
+        _todayLabel.text = NSLocalizedString(@"Today", nil);
         _todayLabel.textAlignment = NSTextAlignmentCenter;
     }
     
