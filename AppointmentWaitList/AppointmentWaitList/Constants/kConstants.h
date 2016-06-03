@@ -20,6 +20,8 @@ static CGFloat const kFontSizeOpenSlot = 12.0f;
 
 static CGFloat const kFontSizeNavigationBar = 18.0f;
 
+static CGFloat const kFontSizeEmptyLabel = 20.0f;
+
 ////////////////////////////////////////
 //
 // Image constants
