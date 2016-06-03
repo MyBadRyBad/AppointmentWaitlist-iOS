@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  EmptyViewController.h
 //  AppointmentWaitList
 //
-//  Created by Ryan Badilla on 5/23/16.
+//  Created by Ryan Badilla on 6/3/16.
 //  Copyright © 2016 Newdesto. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface EmptyViewController : UIViewController
 
 @end
-
