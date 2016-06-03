@@ -13,14 +13,9 @@
 
 // waitlist tableView colors
 + (UIColor *)waitlistTableViewSideLabelColor:(CGFloat)alpha;
-+ (UIColor *)waitlistTableViewWaitListTextColorSelected:(CGFloat)alpha;
-+ (UIColor *)waitlistTableViewWaitListTextColorNotSelected:(CGFloat)alpha;
-
-+ (UIColor *)waitListTableViewSeparatorLineColorSelected:(CGFloat)alpha;
-+ (UIColor *)waitListTableViewSeparatorLineColotNotSelected:(CGFloat)alpha;
-
-+ (UIColor *)waitListTableViewCellSelectedColor:(CGFloat)alpha;
-+ (UIColor *)waitListTableViewCellNotSelectedColor:(CGFloat)alpha;
++ (UIColor *)waitListTextColorSelected:(BOOL)selected alpha:(CGFloat)alpha;
++ (UIColor *)waitListTableViewCellColorSelected:(BOOL)selected alpha:(CGFloat)alpha;
++ (UIColor *)waitListTableViewSeparatorLineColorSelected:(BOOL)selected alpha:(CGFloat)alpha;
 
 // Tab bar colors
 + (UIColor *)tabBarColor:(CGFloat)alpha;

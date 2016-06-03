@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "WaitListViewController.h"
+#import "EmptyViewController.h"
 #import "BackendFunctions.h"
 #import "kBackendConstants.h"
 #import "kColorConstants.h"
@@ -101,8 +102,8 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
 - (void)showWaitListViewControllerWithTimeArray:(NSArray *)timeArray setAsTest:(BOOL)setAsTest{
     
     WaitListViewController *waitListViewController = [[WaitListViewController alloc] init];
-    UIViewController *secondViewController = [[UIViewController alloc] init];
-    UIViewController *thirdViewController = [[UIViewController alloc] init];
+    EmptyViewController *secondViewController = [[EmptyViewController alloc] init];
+    EmptyViewController *thirdViewController = [[EmptyViewController alloc] init];
     
     UINavigationController *navigationWaitListController = [[UINavigationController alloc] initWithRootViewController:waitListViewController];
     

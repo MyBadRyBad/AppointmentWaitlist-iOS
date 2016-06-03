@@ -242,11 +242,9 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    if (enabled) {
-        self.backgroundColor = [kColorConstants waitListTableViewCellSelectedColor:1.0f];
-    } else {
-        self.backgroundColor = [kColorConstants waitListTableViewCellNotSelectedColor:1.0f];
-    }
+    self.backgroundColor = [kColorConstants waitListTableViewCellColorSelected:enabled alpha:1.0f];
+    self.topTimeLabel.textColor = [kColorConstants waitListTextColorSelected:enabled alpha:1.0f];
+    self.bottomTimeLabel.textColor = [kColorConstants waitListTextColorSelected:enabled alpha:1.0f];
     
     _enabled = enabled;
 }
@@ -256,10 +254,9 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
 - (void)setBottomCircleViewVisible:(BOOL)bottomCircleViewVisible {
     if (_bottomCircleView) {
         _bottomCircleView.hidden = !bottomCircleViewVisible;
+        
         if (bottomCircleViewVisible) {
-            _lineSeparatorView.layer.borderWidth = 1.0f;
-        } else {
-            _lineSeparatorView.layer.borderWidth = 0.0f;
+            self.bottomTimeLabel.textColor = [kColorConstants waitListTextColorSelected:YES alpha:1.0f];
         }
     }
 }
@@ -267,6 +264,11 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
 - (void)setTopCircleViewVisible:(BOOL)topCircleViewVisible {
     if (_topCircleView) {
         _topCircleView.hidden = !topCircleViewVisible;
+        
+        if (topCircleViewVisible) {
+            self.topTimeLabel.textColor = [kColorConstants waitListTextColorSelected:YES alpha:1.0f];
+        }
+        
     }
 }
 
@@ -275,14 +277,12 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
         _layoutConstraintLineSeparatorHeight.constant = kLineSeparatorHighlightedHeight;
         [self.contentView layoutIfNeeded];
         
-        _lineSeparatorView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:1.0f];
-        
     } else {
         _layoutConstraintLineSeparatorHeight.constant = kLineSeparatorDefaultHeight;
         [self.contentView layoutIfNeeded];
-        
-        _lineSeparatorView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColotNotSelected:1.0f];
     }
+    
+    _lineSeparatorView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:shouldHighlight alpha:1.0f];
 }
 
 #pragma mark -
@@ -297,8 +297,8 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
     if (!_topTimeLabel) {
         _topTimeLabel = [[UILabel alloc] init];
         _topTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _topTimeLabel.font = [UIFont systemFontOfSize:kFontSizeWaitListTime];
-        _topTimeLabel.textColor = [kColorConstants waitlistTableViewWaitListTextColorNotSelected:1.0f];
+        _topTimeLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime];
+        _topTimeLabel.textColor = [kColorConstants waitListTextColorSelected:NO alpha:1.0f];
     }
     
     return _topTimeLabel;
@@ -308,8 +308,9 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
     if (!_bottomTimeLabel) {
         _bottomTimeLabel = [[UILabel alloc] init];
         _bottomTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _bottomTimeLabel.font = [UIFont systemFontOfSize:kFontSizeWaitListTime];
-        _bottomTimeLabel.textColor = [kColorConstants waitlistTableViewWaitListTextColorNotSelected:1.0f];
+    //    _bottomTimeLabel.font = [UIFont systemFontOfSize:kFontSizeWaitListTime];
+        _bottomTimeLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime];
+        _bottomTimeLabel.textColor = [kColorConstants waitListTextColorSelected:NO alpha:1.0f];
         
     }
     
@@ -321,7 +322,7 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
         _topAmpmLabel = [[UILabel alloc] init];
         _topAmpmLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _topAmpmLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime - 1];
-        _topAmpmLabel.textColor = [kColorConstants waitlistTableViewWaitListTextColorNotSelected:1.0f];
+        _topAmpmLabel.textColor = [kColorConstants waitListTextColorSelected:NO alpha:1.0f];
     }
     
     return _topAmpmLabel;
@@ -332,7 +333,7 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
         _bottomAmpmLabel = [[UILabel alloc] init];
         _bottomAmpmLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomAmpmLabel.font = [UIFont boldSystemFontOfSize:kFontSizeWaitListTime - 1];
-        _bottomAmpmLabel.textColor = [kColorConstants waitlistTableViewWaitListTextColorNotSelected:1.0f];
+        _bottomAmpmLabel.textColor = [kColorConstants waitListTextColorSelected:NO alpha:1.0f];
     }
     
     return _bottomAmpmLabel;
@@ -342,7 +343,7 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
     if (!_bottomCircleView) {
         _bottomCircleView = [[UIView alloc] init];
         _bottomCircleView.translatesAutoresizingMaskIntoConstraints = NO;
-        _bottomCircleView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:1.0f];
+        _bottomCircleView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:YES alpha:1.0f];
     }
     
     return _bottomCircleView;
@@ -352,7 +353,7 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
     if (!_topCircleView) {
         _topCircleView = [[UIView alloc] init];
         _topCircleView.translatesAutoresizingMaskIntoConstraints = NO;
-        _topCircleView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:1.0f];
+        _topCircleView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:YES alpha:1.0f];
     }
     
     return _topCircleView;
@@ -362,7 +363,7 @@ static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
     if (!_lineSeparatorView) {
         _lineSeparatorView = [[UIView alloc] init];
         _lineSeparatorView.translatesAutoresizingMaskIntoConstraints = NO;
-        _lineSeparatorView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColotNotSelected:1.0f];
+        _lineSeparatorView.backgroundColor = [kColorConstants waitListTableViewSeparatorLineColorSelected:NO alpha:1.0f];
         
     }
     

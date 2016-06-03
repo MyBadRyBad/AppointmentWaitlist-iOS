@@ -66,7 +66,7 @@
         _emptyLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
         _emptyLabel.font = [UIFont systemFontOfSize:kFontSizeEmptyLabel];
-        _emptyLabel.textColor = [kColorConstants waitListTableViewCellNotSelectedColor:1.0f];
+        _emptyLabel.textColor = [UIColor whiteColor];
         _emptyLabel.textAlignment = NSTextAlignmentCenter;
         _emptyLabel.text = NSLocalizedString(@"Unused", nil);
     }

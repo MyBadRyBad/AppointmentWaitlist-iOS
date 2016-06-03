@@ -230,20 +230,30 @@ static CGFloat const kActionButtonHeight = 44.0f;
     NSString *key = _keyArray[_selectedCollectionViewIndex];
     NSArray *timeArray = _dataDictionary[key];
     
+    
+    // top buffer cell
     if (indexPath.row == 0) {
         NSDate *date = timeArray[indexPath.row];
         cell.bottomTimeLabel.text = [date stringWithFormat:kDateFormatTime];
         cell.bottomAmpmLabel.text = [date stringWithFormat:@"a"];
+        
+        if (nextCellIndex < [_keyArray count]) {
+            BOOL enabled = [(NSNumber *)_selectedRowArray[nextCellIndex] boolValue];
+            cell.bottomTimeLabel.textColor = [kColorConstants waitListTextColorSelected:enabled alpha:1.0f];
+            [cell setBottomCircleViewVisible:enabled];
+        }
     }
     
+    // bottom buffer cell
     if (indexPath.row == [timeArray count]) {
         cell.lineSeparatorView.hidden = YES;
     }
     
+    
+    // content cells
     if (indexPath.row > 0 && indexPath.row < [timeArray count]) {
         NSDate *currentDate = timeArray[currentCellIndex];
         NSDate *nextDate = timeArray[currentCellIndex + 1];
-        
         
         // setup time labels
         cell.topTimeLabel.text = [currentDate stringWithFormat:kDateFormatTime];
@@ -279,6 +289,8 @@ static CGFloat const kActionButtonHeight = 44.0f;
             BOOL topCircleVisible = (!previousCellSelected && currentCellSelected) || (previousCellSelected && !currentCellSelected);
             
             [cell setTopCircleViewVisible:topCircleVisible];
+        } else { // is first content cell
+            [cell setTopCircleViewVisible:currentCellSelected];
         }
         
         // Hide/Show top circle view if next cell is selected/not selected
@@ -548,15 +560,6 @@ static CGFloat const kActionButtonHeight = 44.0f;
 }
 
 - (void)simulateFetch {
-  /*  NSMutableArray *newData = [NSMutableArray array];
-    NSInteger loadSize = 7; // load next seven days
-    for (int i = _currentCollectionViewIndex * loadSize; i < ((_currentCollectionViewIndex * loadSize) + loadSize); i++) {
-        [newData addObject:[NSString stringWithFormat:@"Item #%d", i]];
-    }
-    
-    _currentCollectionViewIndex++; */
-    
-    
     // Simulate an async load...
     
     double delayInSeconds = 2;

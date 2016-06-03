@@ -16,27 +16,28 @@
     return [UIColor colorWithRed:242.0/255.0f green:242.0/255.0f blue:242.0/255.0f alpha:alpha];
 }
 
-+ (UIColor *)waitlistTableViewWaitListTextColorSelected:(CGFloat)alpha {
-    return [UIColor colorWithRed:67.0/255.0f green:141.0/255.0f blue:202.0/255.0f alpha:alpha];
++ (UIColor *)waitListTextColorSelected:(BOOL)selected alpha:(CGFloat)alpha {
+    if (selected) {
+         return [UIColor colorWithRed:67.0/255.0f green:141.0/255.0f blue:202.0/255.0f alpha:alpha];
+    } else {
+        return [UIColor colorWithRed:30.0/255.0f green:36.0/255.0f blue:70.0/255.0f alpha:alpha];
+    }
 }
 
-+ (UIColor *)waitlistTableViewWaitListTextColorNotSelected:(CGFloat)alpha {
-    return [UIColor colorWithRed:30.0/255.0f green:36.0/255.0f blue:70.0/255.0f alpha:alpha];
++ (UIColor *)waitListTableViewCellColorSelected:(BOOL)selected alpha:(CGFloat)alpha {
+    if (selected) {
+        return [UIColor colorWithRed:222.0/255.0f green:240.0/255.0f blue:252.0/255.0f alpha:alpha];
+    } else {
+        return [UIColor whiteColor];
+    }
 }
 
-+ (UIColor *)waitListTableViewSeparatorLineColorSelected:(CGFloat)alpha {
-    return [UIColor colorWithRed:67.0/255.0f green:141.0/255.0f blue:202.0/255.0f alpha:alpha];
-}
-
-+ (UIColor *)waitListTableViewSeparatorLineColotNotSelected:(CGFloat)alpha {
-    return [UIColor colorWithRed:216.0/255.0f green:216.0/255.0f blue:216.0/255.0f alpha:alpha];
-}
-
-+ (UIColor *)waitListTableViewCellSelectedColor:(CGFloat)alpha {
-    return [UIColor colorWithRed:222.0/255.0f green:240.0/255.0f blue:252.0/255.0f alpha:alpha];
-}
-+ (UIColor *)waitListTableViewCellNotSelectedColor:(CGFloat)alpha {
-    return [UIColor whiteColor];
++ (UIColor *)waitListTableViewSeparatorLineColorSelected:(BOOL)selected alpha:(CGFloat)alpha {
+    if (selected) {
+        return [UIColor colorWithRed:67.0/255.0f green:141.0/255.0f blue:202.0/255.0f alpha:alpha];
+    } else {
+        return [UIColor colorWithRed:216.0/255.0f green:216.0/255.0f blue:216.0/255.0f alpha:alpha];
+    }
 }
 
 // Tab bar color
