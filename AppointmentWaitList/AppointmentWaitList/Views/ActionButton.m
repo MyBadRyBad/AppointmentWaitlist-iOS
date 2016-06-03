@@ -54,7 +54,7 @@
 
 - (void)setupConstraints {
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_nameLabel, _iconImageView);
-    NSDictionary *metrics = @{@"imageViewWidth" : @(40)};
+    NSDictionary *metrics = @{@"imageViewWidth" : @(kImageSizeArrow)};
     
     
     // add vertical constraints
@@ -63,7 +63,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_iconImageView]|" options:0 metrics:metrics views:viewsDictionary]];
     
     // add horizontal constraints
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_nameLabel]-[_iconImageView(imageViewWidth)]|" options:0 metrics:metrics views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_nameLabel]-[_iconImageView(imageViewWidth)]-|" options:0 metrics:metrics views:viewsDictionary]];
     
 }
 
@@ -83,6 +83,7 @@
     if (!_iconImageView) {
         _iconImageView = [[UIImageView alloc] init];
         _iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     return _iconImageView;

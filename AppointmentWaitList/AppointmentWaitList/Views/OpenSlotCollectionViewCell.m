@@ -52,8 +52,6 @@ static CGFloat const kLabelHeight = 14.0f;
 - (void)setup {
     [self setupView];
     [self setupConstraints];
-    
-    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setupView {
@@ -145,7 +143,7 @@ static CGFloat const kLabelHeight = 14.0f;
     if (!_dayNameLabel) {
         _dayNameLabel = [[UILabel alloc] init];
         _dayNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _dayNameLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
+        _dayNameLabel.font = [UIFont boldSystemFontOfSize:kFontSizeOpenSlot];
         _dayNameLabel.textAlignment = NSTextAlignmentCenter;
         _dayNameLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }
@@ -169,7 +167,7 @@ static CGFloat const kLabelHeight = 14.0f;
     if (!_dayNumberLabel) {
         _dayNumberLabel = [[UILabel alloc] init];
         _dayNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _dayNumberLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
+        _dayNumberLabel.font = [UIFont boldSystemFontOfSize:kFontSizeOpenSlot];
         _dayNumberLabel.textAlignment = NSTextAlignmentCenter;
         _dayNameLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }

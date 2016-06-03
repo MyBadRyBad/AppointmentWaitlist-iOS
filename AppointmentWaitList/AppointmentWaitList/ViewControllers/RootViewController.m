@@ -10,6 +10,7 @@
 #import "WaitListViewController.h"
 #import "BackendFunctions.h"
 #import "kBackendConstants.h"
+#import "kColorConstants.h"
 #import "kConstants.h"
 #import <IonIcons.h>
 #import <MBProgressHUD.h>
@@ -106,17 +107,18 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
     UINavigationController *navigationWaitListController = [[UINavigationController alloc] initWithRootViewController:waitListViewController];
     
     // initialize tab bar images
-    UIImage *homeImageSelected = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[UIColor whiteColor]];
-    UIImage *chatImageSelected = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[UIColor whiteColor]];
-    UIImage *settingsImageSelected = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[UIColor whiteColor]];
+    UIImage *homeImageSelected = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[kColorConstants tabBarItemColorSelected:1.0f]];
+    UIImage *chatImageSelected = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[kColorConstants tabBarItemColorSelected:1.0f]];
+    UIImage *settingsImageSelected = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[kColorConstants tabBarItemColorSelected:1.0f]];
     
-    UIImage *homeImage = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[UIColor whiteColor]];
-    UIImage *chatImage = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[UIColor whiteColor]];
-    UIImage *settingsImage = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[UIColor whiteColor]];
+    UIImage *homeImage = [IonIcons imageWithIcon:ion_android_home size:30.0f color:[kColorConstants tabBarItemColorNotSelected:1.0f]];
+    UIImage *chatImage = [IonIcons imageWithIcon:ion_android_chat size:30.0f color:[kColorConstants tabBarItemColorNotSelected:1.0f]];
+    UIImage *settingsImage = [IonIcons imageWithIcon:ion_android_settings size:30.0f color:[kColorConstants tabBarItemColorNotSelected:1.0f]];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    tabBarController.tabBar.tintColor = [kColorConstants tabBarColor:1.0f];
+    tabBarController.tabBar.barTintColor = [kColorConstants tabBarColor:1.0f];
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] initWithObjects:navigationWaitListController, secondViewController, thirdViewController, nil];
     
@@ -137,9 +139,9 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
                                                            selectedImage:settingsImageSelected];
     
     // adjust the tab bar icons down to center them
-    navigationWaitListController.tabBarItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
-    secondViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-    thirdViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    navigationWaitListController.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+    secondViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    thirdViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     
     // set time availability array
     NSMutableArray *timeAvailableArray = (timeArray) ? [NSMutableArray arrayWithArray:timeArray] : nil;
@@ -148,7 +150,6 @@ NSString *kAlertNextStepMessage = @"Will load fake data for demo.";
     
     // setup navigation bar
     [self presentViewController:tabBarController animated:YES completion:nil];
-    
 }
 
 #pragma mark -

@@ -11,6 +11,31 @@
 
 @interface kColorConstants : NSObject
 
+// waitlist tableView colors
++ (UIColor *)waitlistTableViewSideLabelColor:(CGFloat)alpha;
++ (UIColor *)waitlistTableViewWaitListTextColorSelected:(CGFloat)alpha;
++ (UIColor *)waitlistTableViewWaitListTextColorNotSelected:(CGFloat)alpha;
+
++ (UIColor *)waitListTableViewSeparatorLineColorSelected:(CGFloat)alpha;
++ (UIColor *)waitListTableViewSeparatorLineColotNotSelected:(CGFloat)alpha;
+
++ (UIColor *)waitListTableViewCellSelectedColor:(CGFloat)alpha;
++ (UIColor *)waitListTableViewCellNotSelectedColor:(CGFloat)alpha;
+
+// Tab bar colors
++ (UIColor *)tabBarColor:(CGFloat)alpha;
++ (UIColor *)tabBarItemColorSelected:(CGFloat)alpha;
++ (UIColor *)tabBarItemColorNotSelected:(CGFloat)alpha;
+
+// NavigationBar colors
++ (UIColor *)navigationBarColor:(CGFloat)alpha;
++ (UIColor *)navigationBarBackArrowColor:(CGFloat)alpha;
+
+
+// Action Button colors
++ (UIColor *)actionButtonBackgroundColor:(CGFloat)alpha;
++ (UIColor *)actionButtonBackgroundColorHighlighted:(CGFloat)alpha;
+
 // Open Slot Collection View colors
 + (UIColor *)openSlotDayViewBackgroundColorSelected:(CGFloat)alpha;
 + (UIColor *)openSlotDayViewBackgroundColotNotSelected:(CGFloat)alpha;

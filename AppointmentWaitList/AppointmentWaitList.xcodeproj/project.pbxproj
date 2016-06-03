@@ -26,6 +26,7 @@
 		6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A5FFB1CF399290083E012 /* kColorConstants.m */; };
 		6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */; };
 		6ECF73F41CFE917200AC502D /* ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECF73F31CFE917200AC502D /* ActionButton.m */; };
+		6EF105A21D015806002A675F /* HelperFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF105A11D015806002A675F /* HelperFile.m */; };
 		E99FE74148C2A63853B323FD /* libPods-AppointmentWaitListUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,8 @@
 		6E8A60001CF3995E0083E012 /* WaitListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitListTableViewCell.m; path = Views/WaitListCell/WaitListTableViewCell.m; sourceTree = "<group>"; };
 		6ECF73F21CFE917200AC502D /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionButton.h; path = Views/ActionButton.h; sourceTree = "<group>"; };
 		6ECF73F31CFE917200AC502D /* ActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionButton.m; path = Views/ActionButton.m; sourceTree = "<group>"; };
+		6EF105A01D015806002A675F /* HelperFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperFile.h; path = HelperFiles/HelperFile.h; sourceTree = "<group>"; };
+		6EF105A11D015806002A675F /* HelperFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperFile.m; path = HelperFiles/HelperFile.m; sourceTree = "<group>"; };
 		B5C0EAB82FD7BFEC181510EC /* libPods-AppointmentWaitListTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EA26A3A449D65B3164526A /* Pods-AppointmentWaitListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentWaitListTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentWaitListTests/Pods-AppointmentWaitListTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE7526569920C77A3EA00342 /* libPods-AppointmentWaitListUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppointmentWaitListUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +144,8 @@
 				6E5FDBC71CFBB98F00AD9F2A /* NSDate+Helper.m */,
 				6E6CEF8F1CF66CC200E0B1E4 /* NSDate+Utilities.h */,
 				6E6CEF901CF66CC200E0B1E4 /* NSDate+Utilities.m */,
+				6EF105A01D015806002A675F /* HelperFile.h */,
+				6EF105A11D015806002A675F /* HelperFile.m */,
 			);
 			name = HelperFiles;
 			sourceTree = "<group>";
@@ -587,6 +592,7 @@
 				6E8A60011CF3995E0083E012 /* WaitListTableViewCell.m in Sources */,
 				6E8A5FFC1CF399290083E012 /* kColorConstants.m in Sources */,
 				6E6CEF911CF66CC200E0B1E4 /* NSDate+Utilities.m in Sources */,
+				6EF105A21D015806002A675F /* HelperFile.m in Sources */,
 				6ECF73F41CFE917200AC502D /* ActionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

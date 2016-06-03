@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <IonIcons.h>
 #import "ActionButton.h"
+#import "HelperFile.h"
 #import "NSDate+Helper.h"
 #import "NSDate+Utilities.h"
 #import "BackendFunctions.h"
@@ -136,13 +137,13 @@ static CGFloat const kActionButtonHeight = 44.0f;
     
     
     // initialize back button
-    UIImage *image = [IonIcons imageWithIcon:ion_arrow_left_c size:kImageSizeArrow color:[UIColor whiteColor]];
+    UIImage *image = [IonIcons imageWithIcon:ion_arrow_left_c size:kImageSizeArrow color:[kColorConstants navigationBarBackArrowColor:1.0f]];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton:)];
     
     self.navigationItem.leftBarButtonItem = backButton;
     
-//    [self.navigationController.navigationBar setBarTintColor:[kColorConstants navigationBarColor:1.0f]];
-//    [self.navigationController.navigationBar setTintColor:[kColorConstants navigationBarColor:1.0f]];
+    [self.navigationController.navigationBar setBarTintColor:[kColorConstants navigationBarColor:1.0f]];
+    [self.navigationController.navigationBar setTintColor:[kColorConstants navigationBarColor:1.0f]];
 }
 
 
@@ -342,6 +343,9 @@ static CGFloat const kActionButtonHeight = 44.0f;
     
     UICollectionViewCell *cell = (UICollectionViewCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:kLoadingCollectionCellIdentifer forIndexPath:indexPath];
     
+    cell.backgroundColor = [kColorConstants openSlotDayViewBackgroundColotNotSelected:1.0f];
+    
+    // add activity indicator
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     
     [activityIndicator setColor:[kColorConstants openSlotDayViewBackgroundColorSelected:1.0f]];
@@ -555,7 +559,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
     
     // Simulate an async load...
     
-    double delayInSeconds = 5;
+    double delayInSeconds = 2;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
@@ -672,8 +676,17 @@ static CGFloat const kActionButtonHeight = 44.0f;
     if (!_actionButton) {
         _actionButton = [[ActionButton alloc] init];
         _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _actionButton.backgroundColor = [UIColor blackColor];
+        _actionButton.backgroundColor = [kColorConstants actionButtonBackgroundColor:1.0f];
         
+        
+        // setup background color
+        UIImage *backgroundImage = [HelperFile imageWithColor:[kColorConstants actionButtonBackgroundColor:1.0f]];
+        UIImage *backgroundImageHighlighted = [HelperFile imageWithColor:[kColorConstants actionButtonBackgroundColorHighlighted:1.0f]];
+        
+        [_actionButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+        [_actionButton setBackgroundImage:backgroundImageHighlighted forState:UIControlStateHighlighted];
+        
+        // setup label and icon image
         _actionButton.nameLabel.text = NSLocalizedString(@"Add me to waitlist", nil);
         _actionButton.nameLabel.textColor = [UIColor whiteColor];
         _actionButton.nameLabel.textAlignment = NSTextAlignmentRight;
@@ -681,6 +694,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
         UIImage *arrowImage = [IonIcons imageWithIcon:ion_arrow_right_c size:kImageSizeArrow color:[UIColor whiteColor]];
         _actionButton.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
         _actionButton.iconImageView.image = arrowImage;
+        
     }
     
     return _actionButton;
@@ -702,7 +716,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
         UIView *backgroundView = [[UIView alloc] initWithFrame:backgroundViewFrame];
         UIView *separatorView = [[UIView alloc] initWithFrame:separatorViewFrame];
         backgroundView.backgroundColor = [UIColor clearColor];
-        separatorView.backgroundColor = [UIColor grayColor];
+        separatorView.backgroundColor = [kColorConstants waitlistTableViewSideLabelColor:1.0f];
         
         [backgroundView addSubview:separatorView];
         
