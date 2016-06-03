@@ -10,12 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "kConstants.h"
 
-static CGFloat kCircleViewSize = 14.0f;
-static CGFloat kTimeAreaWidth = 90.0f;
-static CGFloat kLabelHeight = 20.0f;
+static CGFloat const kCircleViewSize = 14.0f;
+static CGFloat const kLabelHeight = 20.0f;
 
-static CGFloat kLineSeparatorDefaultHeight = 0.5f;
-static CGFloat kLineSeparatorHighlightedHeight = 2.0f;
+static CGFloat const kLineSeparatorDefaultHeight = 0.5f;
+static CGFloat const kLineSeparatorHighlightedHeight = 2.0f;
 
 @interface WaitListTableViewCell()
 
@@ -117,7 +116,7 @@ static CGFloat kLineSeparatorHighlightedHeight = 2.0f;
                                                                    _topCircleView,
                                                                    _lineSeparatorView);
     NSDictionary *metrics = @{@"circleViewSize" : @(kCircleViewSize),
-                              @"timeAreaWidth" : @(kTimeAreaWidth),
+                              @"timeAreaWidth" : @(kImageTimeAreaWidth),
                               @"labelHeight" : @(20),
                               @"ampmLabelWidth" : @(24)};
     

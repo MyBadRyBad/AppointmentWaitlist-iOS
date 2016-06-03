@@ -26,6 +26,7 @@ static CGFloat const kFontSizeNavigationBar = 16.0f;
 //
 ////////////////////////////////////////
 static CGFloat const kImageSizeArrow = 20.0f;
+static CGFloat const kImageTimeAreaWidth = 90.0f;
 
 
 ////////////////////////////////////////

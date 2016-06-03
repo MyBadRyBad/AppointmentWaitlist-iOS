@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface kColorConstants : NSObject
+
+// Open Slot Collection View colors
++ (UIColor *)openSlotDayViewBackgroundColorSelected:(CGFloat)alpha;
++ (UIColor *)openSlotDayViewBackgroundColotNotSelected:(CGFloat)alpha;
++ (UIColor *)openSlotDayTextColor:(CGFloat)alpha;
 
 @end

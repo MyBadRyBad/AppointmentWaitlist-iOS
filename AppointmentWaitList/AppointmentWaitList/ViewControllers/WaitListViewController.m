@@ -75,9 +75,19 @@ static CGFloat const kActionButtonHeight = 44.0f;
 - (void)setupView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    
+    // add separatorView for background
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kImageTimeAreaWidth, self.view.frame.size.height)];
+    separatorView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:separatorView];
+    
+    
     [self.view addSubview:[self tableView]];
     [self.view addSubview:[self collectionView]];
     [self.view addSubview:[self actionButton]];
+    
+    // just in case, send subview to back
+    [self.view sendSubviewToBack:separatorView];
     _actionButton.hidden = YES;
 }
 
@@ -332,11 +342,12 @@ static CGFloat const kActionButtonHeight = 44.0f;
     
     UICollectionViewCell *cell = (UICollectionViewCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:kLoadingCollectionCellIdentifer forIndexPath:indexPath];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     
-    activityIndicator.center = cell.center;
+    [activityIndicator setColor:[kColorConstants openSlotDayViewBackgroundColorSelected:1.0f]];
+    activityIndicator.center = cell.contentView.center;
     
-    [cell addSubview:activityIndicator];
+    [cell.contentView addSubview:activityIndicator];
     
     [activityIndicator startAnimating];
     
@@ -684,7 +695,18 @@ static CGFloat const kActionButtonHeight = 44.0f;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.tableFooterView = nil;
+        
+        CGRect backgroundViewFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        CGRect separatorViewFrame = CGRectMake(0, 0, kImageTimeAreaWidth, self.view.frame.size.height);
+        
+        UIView *backgroundView = [[UIView alloc] initWithFrame:backgroundViewFrame];
+        UIView *separatorView = [[UIView alloc] initWithFrame:separatorViewFrame];
+        backgroundView.backgroundColor = [UIColor clearColor];
+        separatorView.backgroundColor = [UIColor grayColor];
+        
+        [backgroundView addSubview:separatorView];
+        
+        [_tableView setBackgroundView:backgroundView];
     }
     
     return _tableView;
@@ -712,7 +734,7 @@ static CGFloat const kActionButtonHeight = 44.0f;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
-        _collectionView.backgroundColor = [UIColor grayColor];
+        _collectionView.backgroundColor = [UIColor whiteColor];
         
         // add shadow
         _collectionView.layer.masksToBounds = NO;

@@ -7,9 +7,14 @@
 //
 
 #import "OpenSlotCollectionViewCell.h"
+#import "kColorConstants.h"
 #import "kConstants.h"
 
 static CGFloat const kLabelHeight = 14.0f;
+
+@interface OpenSlotCollectionViewCell()
+
+@end
 
 @implementation OpenSlotCollectionViewCell
 
@@ -118,9 +123,19 @@ static CGFloat const kLabelHeight = 14.0f;
 
 - (void)setCellAsSelected:(BOOL)setAsSelected {
     if (setAsSelected) {
-        self.backgroundColor = [UIColor blueColor];
+        self.backgroundColor = [kColorConstants openSlotDayViewBackgroundColorSelected:1.0f];
+        
+        _dayNameLabel.textColor = [UIColor whiteColor];
+        _monthLabel.textColor = [UIColor whiteColor];
+        _dayNumberLabel.textColor = [UIColor whiteColor];
+        _todayLabel.textColor = [UIColor whiteColor];
     } else {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [kColorConstants openSlotDayViewBackgroundColotNotSelected:1.0f];
+        
+        _dayNameLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
+        _monthLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
+        _dayNumberLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
+        _todayLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }
 }
 
@@ -132,7 +147,7 @@ static CGFloat const kLabelHeight = 14.0f;
         _dayNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _dayNameLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
         _dayNameLabel.textAlignment = NSTextAlignmentCenter;
-        _dayNameLabel.text = @"WED";
+        _dayNameLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }
     
     return _dayNameLabel;
@@ -144,7 +159,7 @@ static CGFloat const kLabelHeight = 14.0f;
         _monthLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _monthLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
         _monthLabel.textAlignment = NSTextAlignmentCenter;
-        _monthLabel.text = @"September";
+        _monthLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }
     
     return _monthLabel;
@@ -156,7 +171,7 @@ static CGFloat const kLabelHeight = 14.0f;
         _dayNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _dayNumberLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
         _dayNumberLabel.textAlignment = NSTextAlignmentCenter;
-        _dayNumberLabel.text = @"10";
+        _dayNameLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
     }
     
     return _dayNumberLabel;
@@ -166,7 +181,8 @@ static CGFloat const kLabelHeight = 14.0f;
     if (!_todayLabel) {
         _todayLabel = [[UILabel alloc] init];
         _todayLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _todayLabel.font = [UIFont systemFontOfSize:kFontSizeOpenSlot];
+        _todayLabel.font = [UIFont boldSystemFontOfSize:kFontSizeOpenSlot + 2];
+        _todayLabel.textColor = [kColorConstants openSlotDayTextColor:1.0f];
         _todayLabel.text = NSLocalizedString(@"Today", nil);
         _todayLabel.textAlignment = NSTextAlignmentCenter;
     }
